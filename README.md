@@ -1,6 +1,6 @@
 # ldts-project-assignment-g0506
 
-Jogo R
+Jogo RPG
 
 O jogador com um nivel e atributos como ataque, vida, defesa, stamina, velocidade anda pelo mapa com potenciais armas e escudos para lutar contra varios tipos de monstros.
 Os monstros tambem têm atributos e estes variam em função do nivel do jogador. Quando um monstro morre o jogador ganha pontos de experiencia sendo que quato mais forte um monstro for mais pontos ganha.
