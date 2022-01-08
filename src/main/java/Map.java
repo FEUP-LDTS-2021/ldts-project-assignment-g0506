@@ -18,6 +18,7 @@ public class Map {
         this.height = height;
         Position position = new Position(heroX, heroY);
         player = new Player(position);
+
         this.walls = createWalls();
     }
 
