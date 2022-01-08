@@ -12,14 +12,15 @@ public class Map {
     private int width, height;
     private Player player;
     private List<Wall> walls;
+    private ReadFile file;
 
     public Map(int width, int height, int heroX, int heroY){
         this.width = width;
         this.height = height;
         Position position = new Position(heroX, heroY);
         player = new Player(position);
-
         this.walls = createWalls();
+        file = new ReadFile();
     }
 
     private List<Wall> createWalls() {
