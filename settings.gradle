@@ -1,0 +1,5 @@
+rootProject.name = 'ProjetoLDTS'
+include 'test'
+include 'untitled:src'
+findProject(':untitled:src')?.name = 'test'
+
