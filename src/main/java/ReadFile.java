@@ -1,18 +1,20 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ReadFile {
-    private List<String> map;
+public class ReadFile{
+    private List<String> file_lines;
 
-    public ReadFile() {
+    public ReadFile(String file_name) {
         try {
-            File myObj = new File("Stage1.txt");
+            file_lines = new ArrayList<String>();
+            File myObj = new File(file_name);
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                map.add(data);
+                file_lines.add(data);
             }
             myReader.close();
         } catch (FileNotFoundException e) {
@@ -22,6 +24,6 @@ public class ReadFile {
     }
 
     public List<String> getMap(){
-        return map;
+        return file_lines;
     }
 }

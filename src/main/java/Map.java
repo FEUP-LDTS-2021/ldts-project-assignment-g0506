@@ -19,19 +19,19 @@ public class Map {
         this.height = height;
         Position position = new Position(heroX, heroY);
         player = new Player(position);
+        file = new ReadFile("Stage1.txt");
         this.walls = createWalls();
-        file = new ReadFile();
     }
 
     private List<Wall> createWalls() {
         List<Wall> walls = new ArrayList<>();
-        for(int i = 0; i < width; i++){
-            walls.add(new Wall(i, 0));
-            walls.add(new Wall(i, height -1));
-        }
-        for(int o = 0; o < width; o++){
-            walls.add(new Wall(0, o));
-            walls.add(new Wall(width -1, o));
+        List<String> lines = file.getMap();
+        for(int i = 0; i < lines.size(); i++){
+            String line = lines.get(i);
+            for(int j = 0; j < line.length(); j++){
+                if(line.charAt(j)=='*')
+                    walls.add(new Wall(j, i));
+            }
         }
         return walls;
     }
