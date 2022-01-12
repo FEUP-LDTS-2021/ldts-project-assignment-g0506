@@ -1,3 +1,10 @@
+import com.googlecode.lanterna.SGR;
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.TextGraphics;
+
+import java.io.IOException;
+
 public class Monster {
     private int hp, attack, defense, stamina, speed, x, y, type;
 
@@ -98,4 +105,11 @@ public class Monster {
     public void setType(int type) {
         this.type = type;
     }
+
+    public void draw(TextGraphics graphics) throws IOException{
+        graphics.setForegroundColor(TextColor.Factory.fromString(("#ff0000")));
+        graphics.enableModifiers(SGR.BOLD);
+        graphics.putString(new TerminalPosition(x, y), "M");
+    }
+
 }

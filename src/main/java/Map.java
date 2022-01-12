@@ -7,12 +7,14 @@ import com.googlecode.lanterna.input.KeyType;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Map {
     private int width, height;
     private Player player;
     private List<Wall> walls;
     private ReadFile file;
+    private List<Monster> monsters=new ArrayList<>();
 
     public Map(int width, int height, int heroX, int heroY){
         this.width = width;
@@ -21,6 +23,8 @@ public class Map {
         player = new Player(position);
         file = new ReadFile("Stage1.txt");
         this.walls = createWalls();
+        addMonster();
+
     }
 
     private List<Wall> createWalls() {
@@ -43,6 +47,9 @@ public class Map {
         for(Wall wall: walls){
             wall.draw(graphics);
         }
+        for(Monster monster: monsters){
+            monster.draw(graphics);
+        }
     }
 
     public void processKey(KeyStroke key){
@@ -63,5 +70,26 @@ public class Map {
 
     private boolean canHeroMove(Position position){
         return position.getX() >= 1 && position.getX() < width - 1 && position.getY() >= 1 & position.getY() < height - 1;
+    }
+
+    public void addMonster(){
+        Random random = new Random();
+        for (int i=0;i<10;i++){
+            int rarity= random.nextInt(400);
+            if (rarity>200){
+                rarity=1;
+            }
+            else if (rarity>100){
+                rarity=2;
+            }
+            else if (rarity>20){
+                rarity=3;
+            }
+            else if (rarity>0){
+                rarity=4;
+            }
+            Monster monster= new Monster(random.nextInt(rarity), random.nextInt(width-2)+1, random.nextInt(height-2)+1);
+            monsters.add(monster);
+        }
     }
 }

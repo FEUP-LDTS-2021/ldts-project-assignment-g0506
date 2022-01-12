@@ -3,12 +3,13 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
     private int hp, attack, defense, stamina, speed, exp=0, gem=0, level;
     private Position position;
-    private List<Weapon> weapons;
+    private List<Weapon> weapons=new ArrayList<>();
 
     public Player(Position position){
         this.hp = 10;
@@ -20,6 +21,8 @@ public class Player {
         this.exp = 0;
         this.gem = 0;
         this.level = 1;
+        Weapon w=new Weapon(1);
+        weapons.add(w);
     }
 
     public Position moveUp(){
@@ -44,6 +47,13 @@ public class Player {
         graphics.setForegroundColor(TextColor.Factory.fromString(("#FFFF33")));
         graphics.enableModifiers(SGR.BOLD);
         graphics.putString(new TerminalPosition(position.getX(), position.getY()), "X");
+        if (weapons.size()>0){
+            graphics.setForegroundColor(TextColor.Factory.fromString(("#71797E")));
+            graphics.enableModifiers(SGR.BOLD);
+            graphics.putString(new TerminalPosition(position.getX()+1, position.getY()), "->");
+        }
+
+
     }
 
     public void setHp(int hp) {
