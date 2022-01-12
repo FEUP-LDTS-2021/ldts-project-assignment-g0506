@@ -18,6 +18,7 @@ import java.net.URL;
 public class ViewMenu{
 
     //private int cursorY ;
+
     Screen screen;
     ViewMenu(){
 
@@ -42,6 +43,7 @@ public class ViewMenu{
             screen.startScreen();
             screen.doResizeIfNecessary();
             screen.setCursorPosition(null);
+
         }
         catch (IOException | URISyntaxException | FontFormatException e) {
             e.printStackTrace();
@@ -49,6 +51,7 @@ public class ViewMenu{
     }
 
     public void draw(int x) throws IOException {
+
         TextGraphics tg = screen.newTextGraphics();
         tg.setBackgroundColor(TextColor.Factory.fromString("#336699"));
         tg.fillRectangle(new TerminalPosition(0,0),tg.getSize(),' ');
@@ -73,9 +76,6 @@ public class ViewMenu{
             screen.refresh();
         }
     }
-
-
-
 
     void closeMenu() throws IOException {
         screen.close();
