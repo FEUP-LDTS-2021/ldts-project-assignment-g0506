@@ -1,27 +1,30 @@
 import java.io.IOException;
 
 public class Controller {
-    Menu menu = new Menu();
-    Game game = new Game();
+    Menu menu;
+    Game game;
     public Controller() throws IOException {
-
+        menu = new Menu();
+       // game = new Game();
     }
 
     void run() throws IOException {
 
+            switch (menu.selectOption()) {
 
-        switch(menu.selectOption()){
-            case 7:
-                menu.closeMenu();
-                game.run();
-                break;
-            case 9:
-                //por fazer
-            case 11:
-                //por fazer
-            case 0:
-                System.exit(0);
+                case 7:
+                    menu.closeMenu();
+                    game = new Game();
+                    game.run();
+                    break;
+                case 9:
+                    //por fazer
+                    break;
+                case 11:
+                    menu.tutorialView();
+
+                case 0:
+                    System.exit(0);
+            }
         }
-
     }
-}
