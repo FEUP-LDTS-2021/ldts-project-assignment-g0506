@@ -33,7 +33,9 @@ public class Map {
             String line = lines.get(i);
             for(int j = 0; j < line.length(); j++){
                 if(line.charAt(j)=='*')
-                    walls.add(new Wall(j, i));
+                    walls.add(new Wall(j, i, '*'));
+                if(line.charAt(j)=='o')
+                    walls.add(new Wall(j, i, 'o'));
             }
         }
         return walls;
@@ -73,7 +75,7 @@ public class Map {
 
     public void addMonster(){
         Random random = new Random();
-        monsters = new ArrayList<Monster>();
+        monsters = new ArrayList<>();
         for (int i=0;i<10;i++){
             int rarity= random.nextInt(400);
             if (rarity>200){
