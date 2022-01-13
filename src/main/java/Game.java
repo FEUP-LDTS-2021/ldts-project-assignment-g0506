@@ -41,10 +41,15 @@ public class Game {
                    screen.close();
                if(key.getKeyType() == KeyType.EOF)
                    break;
+            moveMonsters();
         }
     }
     private void processKey(KeyStroke key)
     {
         map.processKey(key);
+    }
+
+    private void moveMonsters(){
+        map.moveMonsters();
     }
 }

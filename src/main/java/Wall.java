@@ -3,10 +3,11 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class Wall {
     private int x, y;
-
-    public Wall(int x, int y){
+    private String c;
+    public Wall(int x, int y, char c){
         this.x = x;
         this.y = y;
+        this.c = "" + c;
     }
     public int getX() {
         return x;
@@ -21,6 +22,6 @@ public class Wall {
         this.y = y;
     }
     public void draw(TextGraphics graphics){
-        graphics.putString(new TerminalPosition(x, y), "*");
+        graphics.putString(new TerminalPosition(x, y), c);
     }
 }
