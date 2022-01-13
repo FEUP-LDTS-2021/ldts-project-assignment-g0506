@@ -73,7 +73,31 @@ public class Map {
     }
 
     private boolean canHeroMove(Position position){
+        for (Monster monster: monsters){
+            if (position.getX()==monster.getX()&&position.getY()==monster.getY()){
+                return false;
+            }
+        }
         return position.getX() >= 1 && position.getX() < width - 1 && position.getY() >= 1 & position.getY() < height - 1;
+    }
+
+    private boolean canMonsterMove(Monster m,int counter){
+        int counter2=0;
+        for(Monster monster: monsters){
+            if (counter2==counter){
+                continue;
+            }
+            else{
+                if (abs(m.getX()-monster.getX())<=1 && abs(m.getY()-monster.getY())<=1){
+                    return false;
+                }
+            }
+            counter2+=1;
+        }
+        if (abs(m.getX()-player.getPosition().getX())<=1&&abs(m.getY()-player.getPosition().getY())<=1){
+            return false;
+        }
+        return true;
     }
 
     public void addMonster(){
@@ -99,10 +123,14 @@ public class Map {
     }
 
     public void moveMonsters(){
+        int counter=0;
         for(Monster monster: monsters){
-            if (abs(monster.getX()-player.getPosition().getX())<5&&abs(monster.getY()-player.getPosition().getY())<5){
-                monster.changePosition(player.getPosition());
+            if (canMonsterMove(monster,counter)){
+                if (abs(monster.getX()-player.getPosition().getX())<5 && abs(monster.getY()-player.getPosition().getY())<5){
+                    monster.changePosition(player.getPosition());
+                }
             }
+            counter+=1;
         }
     }
 }
