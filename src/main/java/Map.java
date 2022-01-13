@@ -14,7 +14,7 @@ public class Map {
     private Player player;
     private List<Wall> walls;
     private ReadFile file;
-    private List<Monster> monsters=new ArrayList<>();
+    private List<Monster> monsters;
 
     public Map(int width, int height, int heroX, int heroY){
         this.width = width;
@@ -24,7 +24,6 @@ public class Map {
         file = new ReadFile("Stage1.txt");
         this.walls = createWalls();
         addMonster();
-
     }
 
     private List<Wall> createWalls() {
@@ -74,6 +73,7 @@ public class Map {
 
     public void addMonster(){
         Random random = new Random();
+        monsters = new ArrayList<Monster>();
         for (int i=0;i<10;i++){
             int rarity= random.nextInt(400);
             if (rarity>200){
