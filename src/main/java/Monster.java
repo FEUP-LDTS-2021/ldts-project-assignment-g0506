@@ -11,8 +11,7 @@ public class Monster {
 
     public Monster(int type, int x, int y) {
         this.type = type;
-        position.setX(x);
-        position.setY(y);
+        position = new Position(x,y);
         switch(type){
             case 1:
                 this.hp = 5;

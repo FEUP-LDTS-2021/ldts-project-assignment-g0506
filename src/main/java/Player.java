@@ -2,12 +2,11 @@ import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-    private int hp, attack, defense, stamina, speed, exp=0, gem=0, level;
+    private int hp, attack, defense, stamina, speed, exp, gem, level;
     private Position position;
     private List<Weapon> weapons=new ArrayList<>();
 
@@ -43,7 +42,7 @@ public class Player {
     public void setPosition(Position position) {
         this.position = position;
     }
-    public void draw(TextGraphics graphics) throws IOException {
+    public void draw(TextGraphics graphics){
         graphics.setForegroundColor(TextColor.Factory.fromString(("#FFFF33")));
         graphics.enableModifiers(SGR.BOLD);
         graphics.putString(new TerminalPosition(position.getX(), position.getY()), "X");
