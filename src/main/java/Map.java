@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static java.lang.Math.abs;
+
 public class Map {
     private int width, height;
     private Player player;
@@ -51,6 +53,7 @@ public class Map {
         for(Monster monster: monsters){
             monster.draw(graphics);
         }
+
     }
 
     public void processKey(KeyStroke key){
@@ -90,8 +93,16 @@ public class Map {
             else if (rarity>0){
                 rarity=4;
             }
-            Monster monster= new Monster(random.nextInt(rarity), random.nextInt(width-2)+1, random.nextInt(height-2)+1);
+            Monster monster= new Monster(rarity, random.nextInt(width-2)+1, random.nextInt(height-2)+1);
             monsters.add(monster);
+        }
+    }
+
+    public void moveMonsters(){
+        for(Monster monster: monsters){
+            if (abs(monster.getX()-player.getPosition().getX())<5&&abs(monster.getY()-player.getPosition().getY())<5){
+                monster.changePosition(player.getPosition());
+            }
         }
     }
 }

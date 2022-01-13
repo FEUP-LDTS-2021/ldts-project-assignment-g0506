@@ -7,6 +7,7 @@ import java.io.IOException;
 
 public class Monster {
     private int hp, attack, defense, stamina, speed, type;
+    private String sprite= "";
     private Position position;
 
     public Monster(int type, int x, int y) {
@@ -19,6 +20,7 @@ public class Monster {
                 this.defense = 5;
                 this.stamina = 5;
                 this.speed = 5;
+                this.sprite="o";
                 break;
             case 2:
                 this.hp = 15;
@@ -26,6 +28,7 @@ public class Monster {
                 this.defense = 15;
                 this.stamina = 15;
                 this.speed = 15;
+                this.sprite="O";
                 break;
             case 3:
                 this.hp = 30;
@@ -33,6 +36,7 @@ public class Monster {
                 this.defense = 30;
                 this.stamina = 30;
                 this.speed = 30;
+                this.sprite="m";
                 break;
             case 4:
                 this.hp = 50;
@@ -40,6 +44,7 @@ public class Monster {
                 this.defense = 50;
                 this.stamina = 50;
                 this.speed = 50;
+                this.sprite="M";
         }
     }
 
@@ -107,10 +112,29 @@ public class Monster {
         this.type = type;
     }
 
+    public String getSprite() {
+        return sprite;
+    }
+
     public void draw(TextGraphics graphics) throws IOException{
-        graphics.setForegroundColor(TextColor.Factory.fromString(("#ff0000")));
+        graphics.setForegroundColor(TextColor.Factory.fromString(("#FFFFFF")));
         graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(getX(), getY()), "M");
+        graphics.putString(new TerminalPosition(position.getX(), position.getY()), getSprite());
+    }
+
+    public void changePosition(Position position){
+        if (position.getX()>this.position.getX()){
+            this.position.setX(this.position.getX()+1);
+        }
+        else if (position.getX()<this.position.getX()){
+            this.position.setX(this.position.getX()-1);
+        }
+        if (position.getY()>this.position.getY()){
+            this.position.setY(this.position.getY()+1);
+        }
+        else if (position.getY()<this.position.getY()){
+            this.position.setY(this.position.getY()-1);
+        }
     }
 
 }
