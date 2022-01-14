@@ -7,12 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-    private int hp, attack, defense, stamina, speed, exp, gem, level;
+    private int hp,hpI, attack, defense, stamina, speed, exp, gem, level;
     private Position position;
     private List<Weapon> weapons=new ArrayList<>();
 
     public Player(Position position){
         this.hp = 10;
+        this.hpI=10;
         this.attack = 10;
         this.defense = 10;
         this.stamina = 10;
@@ -50,7 +51,7 @@ public class Player {
         if (weapons.size()>0){
             graphics.setForegroundColor(TextColor.Factory.fromString(("#71797E")));
             graphics.enableModifiers(SGR.BOLD);
-            graphics.putString(new TerminalPosition(position.getX()+1, position.getY()), "->");
+            graphics.putString(new TerminalPosition(position.getX()+1, position.getY()-1), "/");
         }
 
 
@@ -149,10 +150,21 @@ public class Player {
         if (exp>=100*(level*level)){
             level+=1;
             hp+=5;
+            hpI+=5;
             attack+=5;
             defense+=5;
             stamina+=5;
             speed+=5;
         }
+    }
+
+    public String healthCount(){
+        int hpPercent=100*(hp/hpI);
+        String hpShow=String.valueOf(hpPercent)+"%";
+        return hpShow;
+    }
+
+    public void Attack(TextGraphics ggraphics){
+
     }
 }

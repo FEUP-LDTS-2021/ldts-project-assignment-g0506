@@ -1,7 +1,7 @@
-package Viewers;
+//package Viewers;
 
-public class ViewGame extends View {
+//public class ViewGame extends View {
 
 
 
-}
+//}
