@@ -14,25 +14,26 @@ import java.net.URL;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 
 
-public class Menu extends ViewMenu{
-
-    private int cursorY = 7;
-    public Menu(){
+public class Menu {
+    ViewMtest view;
+    private int cursorY = 6;
+    public Menu() throws URISyntaxException, IOException, FontFormatException {
+        view = new ViewMtest();
         //a tentar implementar em outro sitio
-
 
 }
 
     int selectOption() throws IOException{
 
         while(true){
-            draw(cursorY);
-            KeyStroke key = screen.readInput();
+            view.drawSelectMenu(cursorY);
+            //draw(cursorY);
+            KeyStroke key = view.getScreen().readInput();
             processKey(key);
 
             if(key.getKeyType() == KeyType.Enter){
                 if(cursorY == 13) {
-                    screen.close();
+                   // screen.close();
                     return 0;
                 }
 

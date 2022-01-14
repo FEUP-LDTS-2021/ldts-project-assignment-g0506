@@ -1,3 +1,4 @@
+import Viewers.View;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
@@ -8,6 +9,8 @@ import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
+import gui.GUI;
+import gui.Lanterna;
 
 import java.awt.*;
 import java.io.File;
@@ -16,10 +19,16 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 public class ViewMenu{
-
+    Screen screen;
     //private int cursorY ;
 
-    Screen screen;
+/*
+    @Override
+    public GUI createLanterna(Screen screen) {
+        return new Lanterna(screen);
+    }
+*/
+
     ViewMenu(){
 
         try {
@@ -64,6 +73,7 @@ public class ViewMenu{
         tg.putString(8,11,"TUTORIAL");
         tg.putString(8,13,"EXIT");
         screen.refresh();
+
     }
 
     void tutorialView() throws IOException {

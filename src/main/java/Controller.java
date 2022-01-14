@@ -1,19 +1,22 @@
+import java.awt.*;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class Controller {
     Menu menu;
     Game game;
-    public Controller() throws IOException {
-        menu = new Menu();
-       // game = new Game();
+    public Controller() throws IOException, URISyntaxException, FontFormatException {
+         menu = new Menu();
+        // game = new Game();
     }
+
 
     void run() throws IOException {
 
             switch (menu.selectOption()) {
 
-                case 7:
-                    menu.closeMenu();
+                case 6:
+
                     game = new Game();
                     game.run();
                     break;
@@ -21,7 +24,7 @@ public class Controller {
                     //por fazer
                     break;
                 case 11:
-                    menu.tutorialView();
+
 
                 case 0:
                     System.exit(0);
