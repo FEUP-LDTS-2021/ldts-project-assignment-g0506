@@ -5,7 +5,11 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
+import gui.GUI;
+
+import java.awt.*;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -13,19 +17,22 @@ import java.util.Random;
 import static java.lang.Math.abs;
 
 public class Map {
-    private int width, height;
+    GUI gui;
+    ViewMap viewMap;
     private Player player;
     private List<Wall> walls;
     private ReadFile file;
     private List<Monster> monsters;
+    private List<Gate> gates;
 
-    public Map(int width, int height, int heroX, int heroY){
-        this.width = width;
-        this.height = height;
-        Position position = new Position(heroX, heroY);
-        player = new Player(position);
-        file = new ReadFile("Stage1.txt");
+    public Map(GUI gui, Player player,String stage) throws URISyntaxException, IOException, FontFormatException {
+        this.gui = gui;
+        viewMap = new ViewMap(gui);
+
+        this.player = player;
+        file = new ReadFile(stage);
         this.walls = createWalls();
+        this.gates = createGates();
         addMonster();
     }
 
@@ -44,17 +51,23 @@ public class Map {
         return walls;
     }
 
-    public void draw(TextGraphics graphics) throws IOException {
-        graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
-        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
-        player.draw(graphics);
-        for(Wall wall: walls){
-            wall.draw(graphics);
+    private List<Gate> createGates(){
+        List<Gate> gates = new ArrayList<>();
+        List<String> lines = file.getMap();
+        for(int i = 0; i < lines.size(); i++){
+            String line = lines.get(i);
+            for(int j = 0; j < line.length(); j++){
+                if(line.charAt(j)=='+')
+                    gates.add(new Gate(new Position(j, i), "+"));
+            }
         }
-        for(Monster monster: monsters){
-            monster.draw(graphics);
-        }
+        return gates;
+    }
 
+
+    public void draw() throws IOException {
+        viewMap.drawElements(gui,player,monsters,walls,gates);
+        gui.refresh();
     }
 
     public void processKey(KeyStroke key){
@@ -79,7 +92,20 @@ public class Map {
                 return false;
             }
         }
-        return position.getX() >= 1 && position.getX() < width - 1 && position.getY() >= 1 & position.getY() < height - 1;
+        return position.getX() >= 1 && position.getX() < 30 - 1 && position.getY() >= 1 & position.getY() < 30 - 1;
+    }
+
+    public int heroOnGate(){
+
+        for(Gate gate: gates) {
+
+            if (player.getX()==gate.getPosition().getX()&&player.getY()==gate.getPosition().getY()) {
+                System.out.println(gate.getLoad());
+                return gate.getLoad();
+
+            }
+        }
+        return 0;
     }
 
     private boolean canMonsterMove(Monster m,int counter){
@@ -118,7 +144,7 @@ public class Map {
             else if (rarity>0){
                 rarity=4;
             }
-            Monster monster= new Monster(rarity, random.nextInt(width-2)+1, random.nextInt(height-2)+1);
+            Monster monster= new Monster(rarity, random.nextInt(30-2)+1, random.nextInt(30-2)+1);
             monsters.add(monster);
         }
     }

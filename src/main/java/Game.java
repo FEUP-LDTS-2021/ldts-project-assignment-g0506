@@ -1,49 +1,48 @@
+import Position.Position;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
-import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.screen.TerminalScreen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-import com.googlecode.lanterna.terminal.Terminal;
+import gui.GUI;
+
+import java.awt.*;
 import java.io.IOException;
-import com.googlecode.lanterna.TerminalSize;
+import java.net.URISyntaxException;
 
 public class Game {
-    private Screen screen;
-    private Map map;
+    GUI gui;
+    Map map;
+    private Player player;
 
-    public Game(){
-        map = new Map(120, 40, 1, 38);
-        try {
-            TerminalSize terminalSize = new TerminalSize(120, 40);
-            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
-            Terminal terminal = terminalFactory.createTerminal();
-            screen = new TerminalScreen(terminal);
-            screen.setCursorPosition(null);
-            screen.startScreen();
-            screen.doResizeIfNecessary();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+    private ReadFile file;
+
+    Game(GUI gui) throws URISyntaxException, IOException, FontFormatException {
+        player = new Player(new Position(5,5));
+        this.gui = gui;
+        map = new Map(gui, player,"Stage1.txt");
+
     }
+
     private void draw() throws IOException{
-        screen.clear();
-        map.draw(screen.newTextGraphics());
-        screen.refresh();
+        gui.clear();
+        map.draw();
+        gui.refresh();
     }
 
-    public void run() throws IOException{
+    public void run() throws IOException, URISyntaxException, FontFormatException {
         while(true) {
             draw();
-            KeyStroke key = screen.readInput();
+            KeyStroke key = gui.getScreen().readInput();
             processKey(key);
-               if(key.getKeyType() == KeyType.Character && key.getCharacter() == 'q')
-                   screen.close();
-               if(key.getKeyType() == KeyType.EOF)
-                   break;
+            if(key.getKeyType() == KeyType.Character && key.getCharacter() == 'q')
+                gui.close();
+            if(key.getKeyType() == KeyType.EOF)
+                break;
             moveMonsters();
+            if(map.heroOnGate() != 0){
+                nextStage(map.heroOnGate()+1);
+            }
         }
     }
+
     private void processKey(KeyStroke key)
     {
         map.processKey(key);
@@ -52,4 +51,15 @@ public class Game {
     private void moveMonsters(){
         map.moveMonsters();
     }
+
+    public void nextStage(int nextStageNumber) throws URISyntaxException, IOException, FontFormatException {
+        String stage = "Stage" + nextStageNumber + ".txt";
+        setMap(gui,player,stage);
+    }
+
+    public void setMap(GUI gui, Player player,String stage) throws URISyntaxException, IOException, FontFormatException {
+        map = new Map(gui,player,stage);
+    }
 }
+
+
