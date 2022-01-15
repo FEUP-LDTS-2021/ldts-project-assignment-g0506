@@ -1,4 +1,3 @@
-//import Viewers.ViewGame;
 import Game.Game;
 import gui.GUI;
 import gui.Lanterna;
@@ -24,14 +23,12 @@ public class Controller {
                 case 6:
                     game = new Game(gui);
                     game.run();
-                   // game = new Game.Game();
-                    //game.run();
                     break;
                 case 9:
                     //por fazer
                     break;
                 case 11:
-
+                    //Por fazer
 
                 case 0:
                     System.exit(0);

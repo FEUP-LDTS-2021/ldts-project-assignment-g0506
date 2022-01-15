@@ -87,7 +87,6 @@ public class Map {
     public int heroOnGate(){
         for(Gate gate: gates) {
             if (player.getX()==gate.getPosition().getX()&&player.getY()==gate.getPosition().getY()) {
-                System.out.println(gate.getLoad());
                 return gate.getLoad();
             }
         }
