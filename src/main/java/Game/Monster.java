@@ -7,6 +7,7 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 import java.io.IOException;
+import java.util.Random;
 
 public class Monster {
     private int hp, attack, defense, stamina, speed, type;
@@ -135,6 +136,45 @@ public class Monster {
         }
         else if (position.getY()<this.position.getY()){
             this.position.setY(this.position.getY()-1);
+        }
+    }
+
+    public void randomPosition(){
+        Random random = new Random();
+        int move=random.nextInt(8);
+        switch (move){
+            case 0:
+                this.position.setX(this.position.getX()+1);
+                this.position.setY(this.position.getY()+1);
+                break;
+            case 1:
+                this.position.setX(this.position.getX()+1);
+                this.position.setY(this.position.getY());
+                break;
+            case 2:
+                this.position.setX(this.position.getX());
+                this.position.setY(this.position.getY()+1);
+                break;
+            case 3:
+                this.position.setX(this.position.getX()+1);
+                this.position.setY(this.position.getY()-1);
+                break;
+            case 4:
+                this.position.setX(this.position.getX()-1);
+                this.position.setY(this.position.getY()+1);
+                break;
+            case 5:
+                this.position.setX(this.position.getX()-1);
+                this.position.setY(this.position.getY()-1);
+                break;
+            case 6:
+                this.position.setX(this.position.getX());
+                this.position.setY(this.position.getY()-1);
+                break;
+            case 7:
+                this.position.setX(this.position.getX()-1);
+                this.position.setY(this.position.getY());
+                break;
         }
     }
 

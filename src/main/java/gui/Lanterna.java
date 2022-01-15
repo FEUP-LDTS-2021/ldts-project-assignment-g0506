@@ -111,11 +111,14 @@ public class Lanterna implements GUI {
 
         textGraphics.enableModifiers(SGR.BOLD);
         textGraphics.putString(position.getX(),position.getY(),"X");
+        /* Apenas mostrar quando o user ataca
         if(weapon > 0){
             textGraphics.setForegroundColor(TextColor.Factory.fromString("#71797E"));
             textGraphics.enableModifiers(SGR.BOLD);
             textGraphics.putString(position.getX()+1,position.getY(),"->");
         }
+        */
+
     }
 
     @Override
