@@ -130,7 +130,7 @@ public class Map {
             else if (rarity>0){
                 rarity=4;
             }
-            Monster monster= new Monster(rarity, random.nextInt(30-2)+1, random.nextInt(30-2)+1);
+            Monster monster= new Monster(rarity, random.nextInt(40-1)+1, random.nextInt(25-1)+1);
             monsters.add(monster);
         }
     }
@@ -141,6 +141,22 @@ public class Map {
             if (canMonsterMove(monster,counter)){
                 if (Math.abs(monster.getX()-player.getPosition().getX())<5 && Math.abs(monster.getY()-player.getPosition().getY())<5){
                     monster.changePosition(player.getPosition());
+                }
+                else{
+                    int tempx=monster.getX(),tempy= monster.getY();
+                    monster.randomPosition();
+                    for (Wall wall: walls){
+                        if (wall.getX()==monster.getX()&&wall.getY()==monster.getY()){
+                            monster.setX(tempx);
+                            monster.setY(tempy);
+                        }
+                    }
+                    for (Gate gate: gates){
+                        if (gate.getPosition().getX()==monster.getX()&&gate.getPosition().getY()==monster.getY()){
+                            monster.setX(tempx);
+                            monster.setY(tempy);
+                        }
+                    }
                 }
             }
             counter+=1;
