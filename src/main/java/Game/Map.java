@@ -94,17 +94,19 @@ public class Map {
         return 0;
     }
 
-    public void invalidMonsterMove(Monster m, int tempx, int tempy, int counter){
+    private boolean invalidMonsterMove(Monster m, int tempx, int tempy, int counter){
         for (Wall wall: walls){
             if (wall.getX()==m.getX()&&wall.getY()==m.getY()){
                 m.setX(tempx);
                 m.setY(tempy);
+                return false;
             }
         }
         for (Gate gate: gates){
             if (gate.getPosition().getX()==m.getX()&&gate.getPosition().getY()==m.getY()){
                 m.setX(tempx);
                 m.setY(tempy);
+                return false;
             }
         }
         int counter2=0;
@@ -116,6 +118,7 @@ public class Map {
                 if (monster1.getX()==m.getX()&&monster1.getY()==m.getY()){
                     m.setX(tempx);
                     m.setY(tempy);
+                    return false;
                 }
             }
             counter2+=1;
@@ -123,7 +126,9 @@ public class Map {
         if (player.getPosition().getX()==m.getX()&&player.getPosition().getY()==m.getY()){
             m.setX(tempx);
             m.setY(tempy);
+            return false;
         }
+        return true;
     }
 
     public void addMonster(){
@@ -159,7 +164,9 @@ public class Map {
             else{
                 int tempx=monster.getX(),tempy= monster.getY();
                 monster.randomPosition();
-                invalidMonsterMove(monster,tempx,tempy,counter);
+                while (!invalidMonsterMove(monster,tempx,tempy,counter)){
+                    monster.randomPosition();
+                }
             }
             counter+=1;
         }
