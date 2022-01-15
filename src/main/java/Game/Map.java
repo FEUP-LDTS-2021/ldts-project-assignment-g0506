@@ -94,23 +94,36 @@ public class Map {
         return 0;
     }
 
-    private boolean canMonsterMove(Monster m, int counter){
+    public void invalidMonsterMove(Monster m, int tempx, int tempy, int counter){
+        for (Wall wall: walls){
+            if (wall.getX()==m.getX()&&wall.getY()==m.getY()){
+                m.setX(tempx);
+                m.setY(tempy);
+            }
+        }
+        for (Gate gate: gates){
+            if (gate.getPosition().getX()==m.getX()&&gate.getPosition().getY()==m.getY()){
+                m.setX(tempx);
+                m.setY(tempy);
+            }
+        }
         int counter2=0;
-        for(Monster monster: monsters){
-            if (counter2==counter){
-                continue;
+        for (Monster monster1:monsters){
+            if (counter==counter2){
+
             }
             else{
-                if (Math.abs(m.getX()-monster.getX())<=1 && Math.abs(m.getY()-monster.getY())<=1){
-                    return false;
+                if (monster1.getX()==m.getX()&&monster1.getY()==m.getY()){
+                    m.setX(tempx);
+                    m.setY(tempy);
                 }
             }
             counter2+=1;
         }
-        if (Math.abs(m.getX()-player.getPosition().getX())<=1&& Math.abs(m.getY()-player.getPosition().getY())<=1){
-            return false;
+        if (player.getPosition().getX()==m.getX()&&player.getPosition().getY()==m.getY()){
+            m.setX(tempx);
+            m.setY(tempy);
         }
-        return true;
     }
 
     public void addMonster(){
@@ -130,7 +143,7 @@ public class Map {
             else if (rarity>0){
                 rarity=4;
             }
-            Monster monster= new Monster(rarity, random.nextInt(40-1)+1, random.nextInt(25-1)+1);
+            Monster monster= new Monster(rarity, random.nextInt(40-2)+1, random.nextInt(25-2)+1);
             monsters.add(monster);
         }
     }
@@ -138,26 +151,15 @@ public class Map {
     public void moveMonsters(){
         int counter=0;
         for(Monster monster: monsters){
-            if (canMonsterMove(monster,counter)){
-                if (Math.abs(monster.getX()-player.getPosition().getX())<5 && Math.abs(monster.getY()-player.getPosition().getY())<5){
-                    monster.changePosition(player.getPosition());
-                }
-                else{
-                    int tempx=monster.getX(),tempy= monster.getY();
-                    monster.randomPosition();
-                    for (Wall wall: walls){
-                        if (wall.getX()==monster.getX()&&wall.getY()==monster.getY()){
-                            monster.setX(tempx);
-                            monster.setY(tempy);
-                        }
-                    }
-                    for (Gate gate: gates){
-                        if (gate.getPosition().getX()==monster.getX()&&gate.getPosition().getY()==monster.getY()){
-                            monster.setX(tempx);
-                            monster.setY(tempy);
-                        }
-                    }
-                }
+            if (Math.abs(monster.getX()-player.getPosition().getX())<5 && Math.abs(monster.getY()-player.getPosition().getY())<5){
+                int tempx=monster.getX(),tempy= monster.getY();
+                monster.changePosition(player.getPosition());
+                invalidMonsterMove(monster,tempx,tempy,counter);
+            }
+            else{
+                int tempx=monster.getX(),tempy= monster.getY();
+                monster.randomPosition();
+                invalidMonsterMove(monster,tempx,tempy,counter);
             }
             counter+=1;
         }
