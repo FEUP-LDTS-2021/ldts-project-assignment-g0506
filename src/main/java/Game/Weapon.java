@@ -1,3 +1,5 @@
+package Game;
+
 public class Weapon {
     private int type;
     public Weapon(int type) {

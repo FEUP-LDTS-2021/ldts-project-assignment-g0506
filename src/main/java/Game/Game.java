@@ -1,4 +1,7 @@
+package Game;
+
 import Position.Position;
+import ReadFile.ReadFile;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import gui.GUI;
@@ -8,17 +11,15 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class Game {
-    GUI gui;
-    Map map;
+    private GUI gui;
+    private Map map;
     private Player player;
-
     private ReadFile file;
 
-    Game(GUI gui) throws URISyntaxException, IOException, FontFormatException {
+    public Game(GUI gui) throws URISyntaxException, IOException, FontFormatException {
         player = new Player(new Position(5,5));
         this.gui = gui;
         map = new Map(gui, player,"Stage1.txt");
-
     }
 
     private void draw() throws IOException{
@@ -53,11 +54,13 @@ public class Game {
     }
 
     public void nextStage(int nextStageNumber) throws URISyntaxException, IOException, FontFormatException {
+        player.setY(23); //so para teste 
         String stage = "Stage" + nextStageNumber + ".txt";
+        System.out.println(nextStageNumber);
         setMap(gui,player,stage);
     }
 
-    public void setMap(GUI gui, Player player,String stage) throws URISyntaxException, IOException, FontFormatException {
+    public void setMap(GUI gui, Player player, String stage) throws URISyntaxException, IOException, FontFormatException {
         map = new Map(gui,player,stage);
     }
 }

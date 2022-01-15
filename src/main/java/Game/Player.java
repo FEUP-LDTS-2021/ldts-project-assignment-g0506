@@ -1,3 +1,6 @@
+package Game;
+
+import Game.Monster;
 import Position.Position;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;

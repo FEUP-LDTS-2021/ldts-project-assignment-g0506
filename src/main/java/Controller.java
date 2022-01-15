@@ -1,4 +1,5 @@
 //import Viewers.ViewGame;
+import Game.Game;
 import gui.GUI;
 import gui.Lanterna;
 
@@ -11,7 +12,6 @@ public class Controller {
     Game game;
     private final GUI gui;
     public Controller() throws IOException, URISyntaxException, FontFormatException {
-
         gui = new Lanterna();
         menu = new Menu(gui);
     }
@@ -24,7 +24,7 @@ public class Controller {
                 case 6:
                     game = new Game(gui);
                     game.run();
-                   // game = new Game();
+                   // game = new Game.Game();
                     //game.run();
                     break;
                 case 9:

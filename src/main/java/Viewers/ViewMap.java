@@ -1,3 +1,9 @@
+package Viewers;
+
+import Game.Gate;
+import Game.Monster;
+import Game.Player;
+import Game.Wall;
 import Position.Position;
 import Viewers.View;
 import gui.GUI;
@@ -10,11 +16,11 @@ import java.util.List;
 public class ViewMap extends View {
 
 
-    ViewMap(GUI gui) throws URISyntaxException, IOException, FontFormatException {
+    public ViewMap(GUI gui) throws URISyntaxException, IOException, FontFormatException {
         super(gui);
     }
 
-    public void drawElements(GUI gui, Player player, List<Monster> monsters, List<Wall> walls,List<Gate> gates) throws IOException {
+    public void drawElements(GUI gui, Player player, List<Monster> monsters, List<Wall> walls, List<Gate> gates) throws IOException {
         draw(gui);
         gui.drawPlayer(player.getPosition(), player.getWeaponSize());
 

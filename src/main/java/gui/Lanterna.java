@@ -25,8 +25,8 @@ import java.net.URL;
 
 public class Lanterna implements GUI {
 
-    private int width = 30;
-    private int height = 30;
+    private int width = 40;
+    private int height = 25;
     Screen screen;
 
     public Lanterna() throws URISyntaxException, IOException, FontFormatException {

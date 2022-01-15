@@ -1,12 +1,14 @@
+package Game;
+
 import Position.Position;
 
 public class Gate {
     Position position;
     int load;
     String sprite;
-    Gate(Position position, String sprite){
+    public Gate(Position position, char sprite){
         this.position = position;
-        this.sprite = sprite;
+        this.sprite = "" + sprite;
         load = setLoad(position.getX(), position.getY());
     }
 

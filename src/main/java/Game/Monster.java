@@ -1,3 +1,5 @@
+package Game;
+
 import Position.Position;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;

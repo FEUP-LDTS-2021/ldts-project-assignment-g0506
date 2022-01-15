@@ -1,3 +1,5 @@
+package Viewers;
+
 import Position.Position;
 import Viewers.View;
 import com.googlecode.lanterna.SGR;

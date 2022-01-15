@@ -1,3 +1,5 @@
+import Game.Monster;
+import Game.Player;
 import Position.Position;
 import org.junit.jupiter.api.Test;
 

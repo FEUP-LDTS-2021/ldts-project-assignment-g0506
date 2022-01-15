@@ -1,20 +1,16 @@
+package Game;
 import Position.Position;
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
+import ReadFile.ReadFile;
+import Viewers.ViewMap;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import gui.GUI;
-
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import static java.lang.Math.abs;
 
 public class Map {
     GUI gui;
@@ -25,44 +21,32 @@ public class Map {
     private List<Monster> monsters;
     private List<Gate> gates;
 
-    public Map(GUI gui, Player player,String stage) throws URISyntaxException, IOException, FontFormatException {
+    public Map(GUI gui, Player player, String stage) throws URISyntaxException, IOException, FontFormatException {
         this.gui = gui;
         viewMap = new ViewMap(gui);
 
         this.player = player;
         file = new ReadFile(stage);
-        this.walls = createWalls();
-        this.gates = createGates();
+        createWalls_Gates();
         addMonster();
     }
 
-    private List<Wall> createWalls() {
-        List<Wall> walls = new ArrayList<>();
+    private void createWalls_Gates() {
+        walls = new ArrayList<>();
+        gates = new ArrayList<>();
         List<String> lines = file.getMap();
         for(int i = 0; i < lines.size(); i++){
             String line = lines.get(i);
             for(int j = 0; j < line.length(); j++){
                 if(line.charAt(j)=='*')
-                    walls.add(new Wall(j, i, '*'));
-                if(line.charAt(j)=='o')
-                    walls.add(new Wall(j, i, 'o'));
+                    walls.add(new Wall(new Position(j,i),'*'));
+
+                if(line.charAt(j)=='+')
+                    gates.add(new Gate(new Position(j,i), '+'));
             }
         }
-        return walls;
     }
 
-    private List<Gate> createGates(){
-        List<Gate> gates = new ArrayList<>();
-        List<String> lines = file.getMap();
-        for(int i = 0; i < lines.size(); i++){
-            String line = lines.get(i);
-            for(int j = 0; j < line.length(); j++){
-                if(line.charAt(j)=='+')
-                    gates.add(new Gate(new Position(j, i), "+"));
-            }
-        }
-        return gates;
-    }
 
 
     public void draw() throws IOException {
@@ -92,36 +76,38 @@ public class Map {
                 return false;
             }
         }
-        return position.getX() >= 1 && position.getX() < 30 - 1 && position.getY() >= 1 & position.getY() < 30 - 1;
+        for(Wall wall: walls){
+            if(position.getX()==wall.getX()&&position.getY()==wall.getY()){
+                return false;
+            }
+        }
+        return true;
     }
 
     public int heroOnGate(){
-
         for(Gate gate: gates) {
-
             if (player.getX()==gate.getPosition().getX()&&player.getY()==gate.getPosition().getY()) {
                 System.out.println(gate.getLoad());
                 return gate.getLoad();
-
             }
         }
         return 0;
     }
 
-    private boolean canMonsterMove(Monster m,int counter){
+    private boolean canMonsterMove(Monster m, int counter){
         int counter2=0;
         for(Monster monster: monsters){
             if (counter2==counter){
                 continue;
             }
             else{
-                if (abs(m.getX()-monster.getX())<=1 && abs(m.getY()-monster.getY())<=1){
+                if (Math.abs(m.getX()-monster.getX())<=1 && Math.abs(m.getY()-monster.getY())<=1){
                     return false;
                 }
             }
             counter2+=1;
         }
-        if (abs(m.getX()-player.getPosition().getX())<=1&&abs(m.getY()-player.getPosition().getY())<=1){
+        if (Math.abs(m.getX()-player.getPosition().getX())<=1&& Math.abs(m.getY()-player.getPosition().getY())<=1){
             return false;
         }
         return true;
@@ -153,7 +139,7 @@ public class Map {
         int counter=0;
         for(Monster monster: monsters){
             if (canMonsterMove(monster,counter)){
-                if (abs(monster.getX()-player.getPosition().getX())<5 && abs(monster.getY()-player.getPosition().getY())<5){
+                if (Math.abs(monster.getX()-player.getPosition().getX())<5 && Math.abs(monster.getY()-player.getPosition().getY())<5){
                     monster.changePosition(player.getPosition());
                 }
             }
