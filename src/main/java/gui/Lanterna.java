@@ -36,17 +36,7 @@ public class Lanterna implements GUI {
         Terminal terminal = newTerminal(width, height, fontCfg);
         screen = newScreen(terminal);
 
-
-        /*
-        AWTTerminalFontConfiguration fontConfig = loadOverkillFont();
-        Terminal terminal = createTerminal(width, height, fontConfig);
-        this.screen = createScreen(terminal);
-        addCloseScreenListener();
-        this.height=height;
-        this.width=width;
-         */
     }
-
 
     public AWTTerminalFontConfiguration loadFont(String nameFont) throws URISyntaxException, IOException, FontFormatException {
         URL resource = getClass().getClassLoader().getResource(nameFont);
@@ -119,6 +109,32 @@ public class Lanterna implements GUI {
         drawText(textGraphics, position, text, colorText);
     }
 
+    public void drawPlayer(Position position,int weapon){
+        TextGraphics textGraphics = screen.newTextGraphics();
+        textGraphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
+        textGraphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+
+        textGraphics.enableModifiers(SGR.BOLD);
+        textGraphics.putString(position.getX(),position.getY(),"X");
+        if(weapon > 0){
+            textGraphics.setForegroundColor(TextColor.Factory.fromString("#71797E"));
+            textGraphics.enableModifiers(SGR.BOLD);
+            textGraphics.putString(position.getX()+1,position.getY(),"->");
+        }
+    }
+
+    @Override
+    public void drawWall(Position position,String sprite) {
+        TextGraphics textGraphics = screen.newTextGraphics();
+        textGraphics.putString(position.getX(),position.getY(),sprite);
+        writeText(position,sprite,"#336699","#A9A9A9");
+    }
+
+    public void drawMonster(Position position,String sprite){
+        TextGraphics textGraphics = screen.newTextGraphics();
+        writeText(position,sprite,"#336699","#000000");
+    }
+
     public void fillBackground(TextGraphics textGraphics, String color) {
         textGraphics.setBackgroundColor(TextColor.Factory.fromString(color));
         textGraphics.fillRectangle(new TerminalPosition(0, 0), textGraphics.getSize(), ' ');
@@ -132,4 +148,11 @@ public class Lanterna implements GUI {
         return this.screen;
     }
 
+    public void clear(){
+        screen.clear();
+    }
+
+    public void close() throws IOException {
+        screen.close();
+    }
 }

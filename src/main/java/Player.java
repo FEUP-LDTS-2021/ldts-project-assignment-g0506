@@ -28,15 +28,19 @@ public class Player {
     public Position moveUp(){
         return new Position(position.getX(), position.getY()-1);
     }
+
     public Position moveDown(){
         return new Position(position.getX(), position.getY()+1);
     }
+
     public Position moveLeft(){
         return new Position(position.getX() - 1, position.getY());
     }
+
     public Position moveRight(){
         return new Position(position.getX() + 1, position.getY());
     }
+
     public Position getPosition() {
         return position;
     }
@@ -124,6 +128,7 @@ public class Player {
         return position.getY();
     }
 
+
     public int getExp() {
         return exp;
     }
@@ -138,6 +143,10 @@ public class Player {
 
     public List<Weapon> getWeapons() {
         return weapons;
+    }
+
+    public int getWeaponSize(){
+        return getWeapons().size();
     }
 
     public void addWeapon(Weapon weapon){

@@ -11,19 +11,14 @@ import java.net.URISyntaxException;
 
 
 public abstract class View {
-    protected final GUI gui;
+
     private final TextGraphics textGraphics;
 
-    public View() throws URISyntaxException, IOException, FontFormatException {
-        this.gui = createLanterna();
+    public View(GUI gui) throws URISyntaxException, IOException, FontFormatException {
         this.textGraphics = gui.createTextGraphics();
     }
 
-    public Screen getScreen(){
-        return gui.getScreen();
-    }
+    public abstract void draw(GUI gui) throws IOException;
 
-    public abstract void draw() throws IOException;
 
-    public abstract GUI createLanterna() throws URISyntaxException, IOException, FontFormatException;
 }

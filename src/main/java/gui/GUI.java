@@ -10,15 +10,25 @@ import java.io.IOException;
 
 public interface GUI {
 
-    public TextGraphics createTextGraphics();
+     TextGraphics createTextGraphics();
 
-    public void fillBackground(TextGraphics textGraphics,String color);
+     void fillBackground(TextGraphics textGraphics,String color);
 
-    public void refresh() throws IOException;
+     void refresh() throws IOException;
 
-    public void writeText(Position position, String text, String color, String colorText);
+     void clear();
 
-    public void drawSelect(Position position, String symbol, String textColor);
+     void writeText(Position position, String text, String color, String colorText);
 
-    public Screen getScreen();
+     void drawSelect(Position position, String symbol, String textColor);
+
+     void drawPlayer(Position position,int weapon);
+
+     void drawWall(Position position,String sprite);
+
+     void drawMonster(Position position,String sprite);
+
+     void close() throws IOException;
+
+     Screen getScreen();
 }

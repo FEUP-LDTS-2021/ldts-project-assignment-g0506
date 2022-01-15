@@ -77,6 +77,10 @@ public class Monster {
         return position.getY();
     }
 
+    public Position getPosition(){
+        return position;
+    }
+
     public int getType() {
         return type;
     }
@@ -115,12 +119,6 @@ public class Monster {
 
     public String getSprite() {
         return sprite;
-    }
-
-    public void draw(TextGraphics graphics) throws IOException{
-        graphics.setForegroundColor(TextColor.Factory.fromString(("#FFFFFF")));
-        graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(position.getX(), position.getY()), getSprite());
     }
 
     public void changePosition(Position position){

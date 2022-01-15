@@ -1,3 +1,7 @@
+//import Viewers.ViewGame;
+import gui.GUI;
+import gui.Lanterna;
+
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -5,20 +9,23 @@ import java.net.URISyntaxException;
 public class Controller {
     Menu menu;
     Game game;
+    private final GUI gui;
     public Controller() throws IOException, URISyntaxException, FontFormatException {
-         menu = new Menu();
-        // game = new Game();
+
+        gui = new Lanterna();
+        menu = new Menu(gui);
     }
 
 
-    void run() throws IOException {
+    void run() throws IOException, URISyntaxException, FontFormatException {
 
             switch (menu.selectOption()) {
 
                 case 6:
-
-                    game = new Game();
+                    game = new Game(gui);
                     game.run();
+                   // game = new Game();
+                    //game.run();
                     break;
                 case 9:
                     //por fazer
