@@ -175,6 +175,12 @@ public class Player {
         return hpShow;
     }
 
+    public String getLevelString(){
+        return Integer.toString(level);
+    }
+
+
+
     public void Attack(TextGraphics ggraphics){
 
     }
