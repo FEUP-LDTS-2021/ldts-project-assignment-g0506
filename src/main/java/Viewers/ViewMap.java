@@ -5,7 +5,6 @@ import Game.Monster;
 import Game.Player;
 import Game.Wall;
 import Position.Position;
-import Viewers.View;
 import gui.GUI;
 
 import java.awt.*;

@@ -9,6 +9,11 @@ import gui.GUI;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Game {
     private GUI gui;
@@ -29,8 +34,22 @@ public class Game {
     }
 
     public void run() throws IOException, URISyntaxException, FontFormatException {
+        //int FPS = 60;
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(map, 0, 5000);
+        TimerTask draw_task = new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    draw();
+                }
+                catch (IOException e){
+                    System.out.println(e);
+                }
+            }
+        };
         while(true) {
-            draw();
+            timer.scheduleAtFixedRate(draw_task, 0, 100);
             KeyStroke key = gui.getScreen().readInput();
             processKey(key);
             if(key.getKeyType() == KeyType.Character && key.getCharacter() == 'q')
@@ -54,7 +73,7 @@ public class Game {
     }
 
     public void nextStage(int nextStageNumber) throws URISyntaxException, IOException, FontFormatException {
-        player.setY(23); //so para teste 
+        player.setY(23); //so para teste
         String stage = "Stage" + nextStageNumber + ".txt";
         System.out.println(nextStageNumber);
         setMap(gui,player,stage);

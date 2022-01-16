@@ -11,8 +11,9 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.TimerTask;
 
-public class Map {
+public class Map extends TimerTask{
     GUI gui;
     ViewMap viewMap;
     private Player player;
@@ -24,12 +25,20 @@ public class Map {
     public Map(GUI gui, Player player, String stage) throws URISyntaxException, IOException, FontFormatException {
         this.gui = gui;
         viewMap = new ViewMap(gui);
-
         this.player = player;
         file = new ReadFile(stage);
         createWalls_Gates();
-        addMonster();
+        monsters = new ArrayList<Monster>();
     }
+
+    @Override
+    public void run() {
+        Random rand = new Random();
+        if(rand.nextBoolean() && monstersSize() < 10){
+            addMonster();
+        }
+    }
+
 
     private void createWalls_Gates() {
         walls = new ArrayList<>();
@@ -132,24 +141,21 @@ public class Map {
 
     public void addMonster(){
         Random random = new Random();
-        monsters = new ArrayList<>();
-        for (int i=0;i<10;i++){
-            int rarity= random.nextInt(400);
-            if (rarity>200){
-                rarity=1;
-            }
-            else if (rarity>100){
-                rarity=2;
-            }
-            else if (rarity>20){
-                rarity=3;
-            }
-            else if (rarity>0){
-                rarity=4;
-            }
-            Monster monster= new Monster(rarity, random.nextInt(40-2)+1, random.nextInt(25-2)+1);
-            monsters.add(monster);
+        int rarity= random.nextInt(400);
+        if (rarity>200){
+            rarity=1;
         }
+        else if (rarity>100){
+            rarity=2;
+        }
+        else if (rarity>20){
+            rarity=3;
+        }
+        else if (rarity>0){
+            rarity=4;
+        }
+        Monster monster = new Monster(rarity, random.nextInt(40-2)+1, random.nextInt(25-2)+1);
+        monsters.add(monster);
     }
 
     public void moveMonsters(){
@@ -170,4 +176,10 @@ public class Map {
             counter+=1;
         }
     }
+
+    public int monstersSize(){
+        return monsters.size();
+    }
+    
 }
+
