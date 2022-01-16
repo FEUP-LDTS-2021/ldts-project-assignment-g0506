@@ -1,10 +1,7 @@
 package gui;
 
 import Position.Position;
-import com.googlecode.lanterna.SGR;
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.*;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 
@@ -133,9 +130,15 @@ public class Lanterna implements GUI {
         writeText(position,sprite,"#336699","#000000");
     }
 
-    public void fillBackground(TextGraphics textGraphics, String color) {
+    public void fillBackground(TextGraphics textGraphics, String color,Position position) {
         textGraphics.setBackgroundColor(TextColor.Factory.fromString(color));
-        textGraphics.fillRectangle(new TerminalPosition(0, 0), textGraphics.getSize(), ' ');
+        textGraphics.fillRectangle(new TerminalPosition(position.getX(), position.getY()), textGraphics.getSize(), ' ');
+    }
+
+    public void drawLine(Position position){
+        TextGraphics textGraphics = screen.newTextGraphics();
+        textGraphics.setBackgroundColor(TextColor.Factory.fromString("#FFFFFF"));
+        textGraphics.fillRectangle(new TerminalPosition(position.getX(), position.getY()), textGraphics.getSize(), ' ');
     }
 
     public void refresh() throws IOException {

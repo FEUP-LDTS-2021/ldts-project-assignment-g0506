@@ -54,7 +54,7 @@ public class Game {
     }
 
     public void nextStage(int nextStageNumber) throws URISyntaxException, IOException, FontFormatException {
-        player.setY(23); //so para teste 
+        player.setY(23); //so para teste
         String stage = "Stage" + nextStageNumber + ".txt";
         System.out.println(nextStageNumber);
         setMap(gui,player,stage);

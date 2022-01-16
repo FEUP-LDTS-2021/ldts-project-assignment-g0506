@@ -11,9 +11,11 @@ import gui.GUI;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.List;
 
 public class ViewMap extends View {
+
 
 
     public ViewMap(GUI gui) throws URISyntaxException, IOException, FontFormatException {
@@ -22,6 +24,7 @@ public class ViewMap extends View {
 
     public void drawElements(GUI gui, Player player, List<Monster> monsters, List<Wall> walls, List<Gate> gates) throws IOException {
         draw(gui);
+        drawPlayerBar(gui,player);
         gui.drawPlayer(player.getPosition(), player.getWeaponSize());
 
         for(Wall wall: walls){
@@ -35,11 +38,19 @@ public class ViewMap extends View {
         for(Gate gate: gates){
             gui.drawWall(gate.getPosition(), gate.getSprite());
         }
+
     }
     @Override
     public void draw(GUI gui) throws IOException {
-        gui.fillBackground(gui.createTextGraphics(),"#336699");
-
+        gui.fillBackground(gui.createTextGraphics(),"#336699",new Position(0,0));
+        gui.fillBackground(gui.createTextGraphics(),"#000000",new Position(0,24));
     }
 
+    public void drawPlayerBar(GUI gui,Player player){
+        gui.writeText(new Position(1,24),"HEALTH: ","#000000","#FFFFFF");
+        gui.writeText(new Position(8,24), player.healthCount(), "#000000","#FFFFFF");
+        gui.writeText(new Position(13,24), "LEVEL:", "#000000","#FFFFFF");
+        gui.writeText(new Position(19,24), player.getLevelString(), "#000000","#FFFFFF");
+
+    }
 }

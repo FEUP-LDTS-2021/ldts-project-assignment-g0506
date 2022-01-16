@@ -12,7 +12,7 @@ public interface GUI {
 
      TextGraphics createTextGraphics();
 
-     void fillBackground(TextGraphics textGraphics,String color);
+     void fillBackground(TextGraphics textGraphics,String color,Position position);
 
      void refresh() throws IOException;
 
@@ -25,6 +25,8 @@ public interface GUI {
      void drawPlayer(Position position,int weapon);
 
      void drawWall(Position position,String sprite);
+
+      void drawLine(Position position);
 
      void drawMonster(Position position,String sprite);
 

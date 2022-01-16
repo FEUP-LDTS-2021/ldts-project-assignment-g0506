@@ -27,7 +27,7 @@ public class Menu {
             processKey(key);
 
             if(key.getKeyType() == KeyType.Enter){
-                if(cursorY == 13) {
+                if(cursorY == 12) {
                    // screen.close();
                     return 0;
                 }
