@@ -5,13 +5,9 @@ import ReadFile.ReadFile;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import gui.GUI;
-
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -34,9 +30,10 @@ public class Game {
     }
 
     public void run() throws IOException, URISyntaxException, FontFormatException {
-        //int FPS = 60;
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(map, 0, 5000);
+        Timer drawTimer = new Timer();
+        Timer playerTimer = new Timer();
+        Timer monsterTimer = new Timer();
+        monsterTimer.scheduleAtFixedRate(map, 0, 1000);
         TimerTask draw_task = new TimerTask() {
             @Override
             public void run() {
@@ -48,15 +45,25 @@ public class Game {
                 }
             }
         };
+        TimerTask movePlayerTask = new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    KeyStroke key = gui.getScreen().readInput();
+                    processKey(key);
+                }
+                catch (IOException e){
+                    System.out.println(e);
+                }
+            }
+        };
+        playerTimer.scheduleAtFixedRate(movePlayerTask, 0, 5000/player.getSpeed());
+        drawTimer.scheduleAtFixedRate(draw_task, 0, 100);
         while(true) {
-            timer.scheduleAtFixedRate(draw_task, 0, 100);
-            KeyStroke key = gui.getScreen().readInput();
-            processKey(key);
-            if(key.getKeyType() == KeyType.Character && key.getCharacter() == 'q')
+            /*if(key.getKeyType() == KeyType.Character && key.getCharacter() == 'q')
                 gui.close();
             if(key.getKeyType() == KeyType.EOF)
-                break;
-            moveMonsters();
+                break;*/
             if(map.heroOnGate() != 0){
                 nextStage(map.heroOnGate()+1);
             }
@@ -66,10 +73,6 @@ public class Game {
     private void processKey(KeyStroke key)
     {
         map.processKey(key);
-    }
-
-    private void moveMonsters(){
-        map.moveMonsters();
     }
 
     public void nextStage(int nextStageNumber) throws URISyntaxException, IOException, FontFormatException {

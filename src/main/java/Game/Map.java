@@ -37,6 +37,8 @@ public class Map extends TimerTask{
         if(rand.nextBoolean() && monstersSize() < 10){
             addMonster();
         }
+        moveMonsters();
+
     }
 
 
@@ -180,6 +182,6 @@ public class Map extends TimerTask{
     public int monstersSize(){
         return monsters.size();
     }
-    
+
 }
 
