@@ -156,7 +156,12 @@ public class Map extends TimerTask{
         else if (rarity>0){
             rarity=4;
         }
-        Monster monster = new Monster(rarity, random.nextInt(40-2)+1, random.nextInt(25-2)+1);
+        int mx=player.getPosition().getX(), my=player.getPosition().getY();
+        while (Math.abs(mx-player.getPosition().getX())<5 && Math.abs(my-player.getPosition().getY())<5){
+            mx=random.nextInt(40-2)+1;
+            my=random.nextInt(25-2)+1;
+        }
+        Monster monster = new Monster(rarity,mx,my);
         monsters.add(monster);
     }
 
