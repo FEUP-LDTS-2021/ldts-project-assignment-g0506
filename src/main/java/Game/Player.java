@@ -179,9 +179,4 @@ public class Player {
         return Integer.toString(level);
     }
 
-
-
-    public void Attack(TextGraphics ggraphics){
-
-    }
 }
