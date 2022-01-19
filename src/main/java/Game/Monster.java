@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Random;
 
 public class Monster {
-    private int hp, attack, defense, stamina, speed, type;
+    private int hp, attack, defense, stamina, speed, type, attackCounter=0;
     private String sprite= "";
     private Position position;
 
@@ -124,6 +124,14 @@ public class Monster {
         return sprite;
     }
 
+    public int getAttackCounter() {
+        return attackCounter;
+    }
+
+    public void setAttackCounter(int attackCounter) {
+        this.attackCounter = attackCounter;
+    }
+
     public void changePosition(Position position){
         if (position.getX()>this.position.getX()){
             this.position.setX(this.position.getX()+1);
@@ -177,5 +185,6 @@ public class Monster {
                 break;
         }
     }
+
 
 }

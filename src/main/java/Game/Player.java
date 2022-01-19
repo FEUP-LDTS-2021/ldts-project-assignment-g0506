@@ -14,8 +14,8 @@ public class Player {
     private List<Weapon> weapons=new ArrayList<>();
 
     public Player(Position position){
-        this.hp = 10;
-        this.hpI=10;
+        this.hp = 15;
+        this.hpI=15;
         this.attack = 10;
         this.defense = 10;
         this.stamina = 10;
@@ -24,8 +24,15 @@ public class Player {
         this.exp = 0;
         this.gem = 0;
         this.level = 1;
-        Weapon w=new Weapon(1);
+        Weapon w=new Weapon(1, 5);
         weapons.add(w);
+        if (weapons.get(0).getType()==1){
+            this.attack+=weapons.get(0).getBoost()/5;
+        }
+        else{
+            this.defense+=weapons.get(0).getBoost()/5;
+        }
+
     }
 
     public Position moveUp(){
@@ -50,18 +57,7 @@ public class Player {
     public void setPosition(Position position) {
         this.position = position;
     }
-    public void draw(TextGraphics graphics){
-        graphics.setForegroundColor(TextColor.Factory.fromString(("#FFFF33")));
-        graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "X");
-        if (weapons.size()>0){
-            graphics.setForegroundColor(TextColor.Factory.fromString(("#71797E")));
-            graphics.enableModifiers(SGR.BOLD);
-            graphics.putString(new TerminalPosition(position.getX()+1, position.getY()-1), "/");
-        }
 
-
-    }
 
     public void setHp(int hp) {
         this.hp = hp;
@@ -170,9 +166,21 @@ public class Player {
     }
 
     public String healthCount(){
-        int hpPercent=100*(hp/hpI);
-        String hpShow=String.valueOf(hpPercent)+"%";
+        double hpPercent=100*(((double)hp)/hpI);
+        String hpShow;
+        if (hpPercent<100){
+            hpShow=String.valueOf(hpPercent);
+            hpShow= hpShow.substring(0,2)+"%";
+            return hpShow;
+        }
+        if (hpPercent==0){
+            hpShow=String.valueOf(hpPercent);
+            hpShow= hpShow.substring(0,1)+"%";
+        }
+        hpShow=String.valueOf(hpPercent);
+        hpShow= hpShow.substring(0,3)+"%";
         return hpShow;
+
     }
 
     public String getLevelString(){
