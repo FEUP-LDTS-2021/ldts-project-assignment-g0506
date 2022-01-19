@@ -74,6 +74,8 @@ public class Map extends TimerTask{
             moveHero(player.moveLeft());
         else if(key.getKeyType() == KeyType.ArrowRight)
             moveHero(player.moveRight());
+        else if (key.getKeyType() == KeyType.Enter)
+            Attack();
     }
 
     private void moveHero(Position position) {
@@ -159,7 +161,7 @@ public class Map extends TimerTask{
         int mx=player.getPosition().getX(), my=player.getPosition().getY();
         while (Math.abs(mx-player.getPosition().getX())<5 && Math.abs(my-player.getPosition().getY())<5){
             mx=random.nextInt(40-2)+1;
-            my=random.nextInt(25-2)+1;
+            my=random.nextInt(25-4)+1;
         }
         Monster monster = new Monster(rarity,mx,my);
         monsters.add(monster);
@@ -186,6 +188,25 @@ public class Map extends TimerTask{
 
     public int monstersSize(){
         return monsters.size();
+    }
+
+    public void Attack(){
+        List<Monster> TempM = new ArrayList<Monster>();
+        for (int i=0; i<monstersSize();i++){
+            if (Math.abs(monsters.get(i).getX()-player.getPosition().getX())<=1 && Math.abs(monsters.get(i).getY()-player.getPosition().getY())<=1){
+                monsters.get(i).setHp(monsters.get(i).getHp()-(player.getAttack()-(monsters.get(i).getDefense()/5)));
+                if (monsters.get(i).getHp()<=0){
+                    player.monsterKill(monsters.get(i));
+                }
+                else{
+                    TempM.add(monsters.get(i));
+                }
+            }
+            else{
+                TempM.add(monsters.get(i));
+            }
+        }
+        monsters=TempM;
     }
 
 }
