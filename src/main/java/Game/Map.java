@@ -174,6 +174,19 @@ public class Map extends TimerTask{
                 int tempx=monster.getX(),tempy= monster.getY();
                 monster.changePosition(player.getPosition());
                 invalidMonsterMove(monster,tempx,tempy,counter);
+                if (Math.abs(monster.getX()-player.getPosition().getX())<=1 && Math.abs(monster.getY()-player.getPosition().getY())<=1){
+                    if (monster.getAttackCounter()<1){
+                        monster.setAttackCounter(1);
+                    }
+                    else{
+                        player.setHp(player.getHp()-(monster.getAttack()-(player.getDefense()/5)));
+                        monster.setAttackCounter(0);
+                        if (player.getHp()<=0){
+                            //kill the player
+                        }
+                    }
+
+                }
             }
             else{
                 int tempx=monster.getX(),tempy= monster.getY();
