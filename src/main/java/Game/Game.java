@@ -16,11 +16,13 @@ public class Game {
     private Map map;
     private Player player;
     private ReadFile file;
-
+    boolean state;
     public Game(GUI gui) throws URISyntaxException, IOException, FontFormatException {
         player = new Player(new Position(5,5));
         this.gui = gui;
         map = new Map(gui, player,"Stage1.txt");
+        this.state = true;
+
     }
 
     private void draw() throws IOException{
@@ -57,16 +59,20 @@ public class Game {
                 }
             }
         };
+        while(true){System.out.println("t");
         playerTimer.scheduleAtFixedRate(movePlayerTask, 0, 5000/player.getSpeed());
         drawTimer.scheduleAtFixedRate(draw_task, 0, 100);
-        while(true) {
+       // while(true) {
             /*if(key.getKeyType() == KeyType.Character && key.getCharacter() == 'q')
                 gui.close();
             if(key.getKeyType() == KeyType.EOF)
                 break;*/
+    /*
             if(map.heroOnGate() != 0){
+
                 nextStage(map.heroOnGate()+1);
-            }
+            }*/
+
         }
     }
 
