@@ -11,9 +11,6 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.TimerTask;
-
-import static Controls.PlayerController.Collision;
 
 public class Map{
     GUI gui;

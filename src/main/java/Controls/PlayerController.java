@@ -1,9 +1,6 @@
 package Controls;
 
-import Game.Gate;
-import Game.Monster;
-import Game.Player;
-import Game.Wall;
+import Game.*;
 import Position.Position;
 import gui.GUI;
 
@@ -11,28 +8,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerController {
-    Player player;
+    private Map map;
+    private Player player;
 
-    public PlayerController(Player player){
+    public PlayerController(Player player, Map map){
         this.player = player;
+        this.map = map;
     }
 
     public Player getPlayer(){
         return player;
     }
 
-    private void moveHero(Position position, List<Monster> monsters, List<Wall> walls) {
-        if (Collision(position, monsters, walls))
+    private void moveHero(Position position) {
+        if (Collision(position))
             player.setPosition(position);
     }
 
-    public static boolean Collision(Position position, List<Monster> monsters, List<Wall> walls) {
-        for (Monster monster: monsters){
+    public boolean Collision(Position position) {
+        for (Monster monster: map.getMonsters()){
             if (position.getX()==monster.getX()&&position.getY()==monster.getY()){
                 return false;
             }
         }
-        for(Wall wall: walls){
+        for(Wall wall: map.getWalls()){
             if(position.getX()==wall.getX()&&position.getY()==wall.getY()){
                 return false;
             }
@@ -40,8 +39,8 @@ public class PlayerController {
         return true;
     }
 
-    public int heroOnGate(List<Gate> gates){
-        for(Gate gate: gates) {
+    public int heroOnGate(){
+        for(Gate gate: map.getGates()) {
             if (player.getX()==gate.getPosition().getX()&&player.getY()==gate.getPosition().getY()) {
                 switch (gate.getPosition().getX()){
                     case 39 -> player.setX(1);
@@ -57,20 +56,32 @@ public class PlayerController {
         return 0;
     }
 
-    public List<Monster> processKey(GUI.ACTION action, List<Monster> monsters, List<Wall> walls){
+    public boolean processKey(GUI.ACTION action){
         switch (action) {
-            case UP -> moveHero(player.moveUp(), monsters, walls);
-            case DOWN -> moveHero(player.moveDown(), monsters, walls);
-            case LEFT -> moveHero(player.moveLeft(), monsters, walls);
-            case RIGHT -> moveHero(player.moveRight(), monsters, walls);
-            case ATTACK -> monsters = Attack(monsters);
+            case UP:
+                moveHero(player.moveUp());
+                break;
+            case DOWN:
+                moveHero(player.moveDown());
+                break;
+            case LEFT:
+                moveHero(player.moveLeft());
+                break;
+            case RIGHT:
+                moveHero(player.moveRight());
+                break;
+            case ATTACK:
+                Attack();
+                break;
+            case EXIT:
+                return true;
         }
-        return monsters;
+        return false;
     }
 
-    public List<Monster> Attack(List<Monster> monsters){
+    public void Attack(){
         List<Monster> TempM = new ArrayList<>();
-        for (Monster monster : monsters) {
+        for (Monster monster : map.getMonsters()) {
             if (Math.abs(monster.getX() - player.getPosition().getX()) <= 1 && Math.abs(monster.getY() - player.getPosition().getY()) <= 1) {
                 monster.setHp(monster.getHp() - (player.getAttack() - (monster.getDefense() / 5)));
                 if (monster.getHp() <= 0) {
@@ -82,7 +93,6 @@ public class PlayerController {
                 TempM.add(monster);
             }
         }
-        monsters=TempM;
-        return monsters;
+        map.setMonsters(TempM);
     }
 }

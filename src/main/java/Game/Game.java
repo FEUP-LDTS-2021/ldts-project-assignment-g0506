@@ -21,7 +21,7 @@ public class Game {
         this.gui = gui;
         map = new Map(gui, p, "Stage1.txt", this);
         this.state = true;
-        player = new PlayerController(p);
+        player = new PlayerController(p, map);
     }
 
     private void draw(long time) throws IOException {
@@ -38,10 +38,13 @@ public class Game {
             long startTime = System.currentTimeMillis();
             draw(startTime);
 
-            processKey(gui.getKeyCommand());
+            boolean exit = processKey(gui.getKeyCommand());
+            if(exit)
+                state = false;
 
-            if (player.heroOnGate(map.getGates()) != 0) {
-                nextStage(player.heroOnGate(map.getGates()) + 1);
+
+            if (player.heroOnGate() != 0) {
+                nextStage(player.heroOnGate()+1);
             }
             //if(player.getHp() <= 0) state = false;
             long elapsedTime = System.currentTimeMillis() - startTime;
@@ -62,8 +65,8 @@ public class Game {
         //POR FAZER
     }
 
-    private void processKey(GUI.ACTION action) {
-        map.setMonsters(player.processKey(action, map.getMonsters(), map.getWalls()));
+    private boolean processKey(GUI.ACTION action) {
+        return player.processKey(action);
     }
 
     public void nextStage(int nextStageNumber) throws URISyntaxException, IOException, FontFormatException {
