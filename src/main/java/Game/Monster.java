@@ -181,5 +181,20 @@ public class Monster {
         }
     }
 
+    public void monsterKnockback(Position position){
+        if (position.getX()>this.position.getX()){
+            this.position.setX(this.position.getX()-1);
+        }
+        else if (position.getX()<this.position.getX()){
+            this.position.setX(this.position.getX()+1);
+        }
+        if (position.getY()>this.position.getY()){
+            this.position.setY(this.position.getY()-1);
+        }
+        else if (position.getY()<this.position.getY()){
+            this.position.setY(this.position.getY()+1);
+        }
+    }
+
 
 }

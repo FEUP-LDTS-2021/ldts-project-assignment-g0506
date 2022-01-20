@@ -18,7 +18,7 @@ public class Player {
     public Player(Position position){
         this.hp = 15;
         this.hpI=15;
-        this.attack = 10;
+        this.attack = 5;
         this.defense = 10;
         this.stamina = 10;
         this.speed = 10;

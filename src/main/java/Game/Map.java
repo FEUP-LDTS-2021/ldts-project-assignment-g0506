@@ -225,6 +225,7 @@ public class Map{
                     player.monsterKill(monsters.get(i));
                 }
                 else{
+                    monsters.get(i).monsterKnockback(player.getPosition());
                     TempM.add(monsters.get(i));
                 }
             }
