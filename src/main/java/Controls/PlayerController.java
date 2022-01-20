@@ -49,7 +49,7 @@ public class PlayerController {
                 }
                 switch(gate.getPosition().getY()){
                     case 0 -> player.setY(22);
-                    case 24 -> player.setY(1);
+                    case 23 -> player.setY(1);
                 }
                 return gate.getLoad();
             }
@@ -64,9 +64,6 @@ public class PlayerController {
             case LEFT -> moveHero(player.moveLeft(), monsters, walls);
             case RIGHT -> moveHero(player.moveRight(), monsters, walls);
             case ATTACK -> monsters = Attack(monsters);
-            /*case EXIT:
-                game.setState(false);
-                break;*/
         }
         return monsters;
     }

@@ -3,6 +3,7 @@ package Game;
 import Controls.PlayerController;
 import Position.Position;
 import ReadFile.ReadFile;
+import com.googlecode.lanterna.input.KeyStroke;
 import gui.GUI;
 import java.awt.*;
 import java.io.IOException;
@@ -35,13 +36,11 @@ public class Game {
 
         while (state) {
             long startTime = System.currentTimeMillis();
-
             draw(startTime);
+
             processKey(gui.getKeyCommand());
 
-
             if (player.heroOnGate(map.getGates()) != 0) {
-
                 nextStage(player.heroOnGate(map.getGates()) + 1);
             }
             //if(player.getHp() <= 0) state = false;
