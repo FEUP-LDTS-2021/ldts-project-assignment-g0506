@@ -189,7 +189,12 @@ public class Player {
             hpShow= hpShow.substring(0,2)+"%";
             return hpShow;
         }
-        if (hpPercent==0){
+        if (hpPercent<10){
+            hpShow=String.valueOf(hpPercent);
+            hpShow= hpShow.substring(0,1)+"%";
+        }
+        if (hpPercent<0){
+            hpPercent=0;
             hpShow=String.valueOf(hpPercent);
             hpShow= hpShow.substring(0,1)+"%";
         }
