@@ -13,34 +13,37 @@ import java.util.List;
 import java.util.Random;
 import java.util.TimerTask;
 
-public class Map extends TimerTask{
+public class Map{
     GUI gui;
+    Game game;
     ViewMap viewMap;
     private Player player;
     private List<Wall> walls;
     private ReadFile file;
     private List<Monster> monsters;
     private List<Gate> gates;
+    long timeNow;
 
-    public Map(GUI gui, Player player, String stage) throws URISyntaxException, IOException, FontFormatException {
+    public Map(GUI gui, Player player, String stage,Game game) throws URISyntaxException, IOException, FontFormatException {
         this.gui = gui;
         viewMap = new ViewMap(gui);
         this.player = player;
         file = new ReadFile(stage);
         createWalls_Gates();
         monsters = new ArrayList<Monster>();
+        this.timeNow = 0;
+        this.game = game;
     }
 
-    @Override
-    public void run() {
+
+    public void run(long time) {
         Random rand = new Random();
         if(rand.nextBoolean() && monstersSize() < 10){
             addMonster();
         }
-        moveMonsters();
+        moveMonsters(time);
 
     }
-
 
     private void createWalls_Gates() {
         walls = new ArrayList<>();
@@ -58,24 +61,25 @@ public class Map extends TimerTask{
         }
     }
 
-
-
-    public void draw() throws IOException {
+    public void draw(long time) throws IOException {
+        run(time);
         viewMap.drawElements(gui,player,monsters,walls,gates);
         gui.refresh();
     }
 
-    public void processKey(KeyStroke key){
-        if(key.getKeyType() == KeyType.ArrowUp)
+    public void processKey(GUI.ACTION action){
+        if(action == GUI.ACTION.UP)
             moveHero(player.moveUp());
-        else if(key.getKeyType() == KeyType.ArrowDown)
+        else if(action == GUI.ACTION.DOWN)
             moveHero(player.moveDown());
-        else if(key.getKeyType() == KeyType.ArrowLeft)
+        else if(action == GUI.ACTION.LEFT)
             moveHero(player.moveLeft());
-        else if(key.getKeyType() == KeyType.ArrowRight)
+        else if(action == GUI.ACTION.RIGHT)
             moveHero(player.moveRight());
-        else if (key.getKeyType() == KeyType.Enter)
+        else if (action == GUI.ACTION.ATTACK)
             Attack();
+        else if(action == GUI.ACTION.EXIT)
+            game.setState(false);
     }
 
     private void moveHero(Position position) {
@@ -167,8 +171,10 @@ public class Map extends TimerTask{
         monsters.add(monster);
     }
 
-    public void moveMonsters(){
+    public void moveMonsters(long time){
         int counter=0;
+        if (time-timeNow>400) {
+
         for(Monster monster: monsters){
             if (Math.abs(monster.getX()-player.getPosition().getX())<5 && Math.abs(monster.getY()-player.getPosition().getY())<5){
                 int tempx=monster.getX(),tempy= monster.getY();
@@ -187,6 +193,7 @@ public class Map extends TimerTask{
                     }
 
                 }
+
             }
             else{
                 int tempx=monster.getX(),tempy= monster.getY();
@@ -196,6 +203,8 @@ public class Map extends TimerTask{
                 }
             }
             counter+=1;
+        }
+            timeNow = time;
         }
     }
 

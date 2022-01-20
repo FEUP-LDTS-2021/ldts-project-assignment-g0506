@@ -28,9 +28,13 @@ public interface GUI {
 
       void drawLine(Position position);
 
+     ACTION getKeyCommand() throws IOException;
+
      void drawMonster(Position position,String sprite);
 
      void close() throws IOException;
 
      Screen getScreen();
+
+     enum ACTION {UP, RIGHT, DOWN, LEFT, ATTACK, NONE, QUIT, SELECT,EXIT}
 }

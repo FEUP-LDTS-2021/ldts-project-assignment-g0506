@@ -3,6 +3,8 @@ package gui;
 import Position.Position;
 import com.googlecode.lanterna.*;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 
 import com.googlecode.lanterna.screen.TerminalScreen;
@@ -141,6 +143,23 @@ public class Lanterna implements GUI {
         textGraphics.fillRectangle(new TerminalPosition(position.getX(), position.getY()), textGraphics.getSize(), ' ');
     }
 
+    @Override
+    public ACTION getKeyCommand() throws IOException {
+        KeyStroke keyStroke = screen.pollInput();
+        if (keyStroke == null) return ACTION.NONE;
+
+        if (keyStroke.getKeyType() == KeyType.EOF) return ACTION.QUIT;
+        if (keyStroke.getKeyType() == KeyType.Escape) return ACTION.QUIT;
+
+        if (keyStroke.getKeyType() == KeyType.ArrowUp) return ACTION.UP;
+        if (keyStroke.getKeyType() == KeyType.ArrowRight) return ACTION.RIGHT;
+        if (keyStroke.getKeyType() == KeyType.ArrowDown) return ACTION.DOWN;
+        if (keyStroke.getKeyType() == KeyType.ArrowLeft) return ACTION.LEFT;
+        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'q') return ACTION.EXIT;
+        if (keyStroke.getKeyType() == KeyType.Enter) return ACTION.ATTACK;
+        return ACTION.NONE;
+    }
+
     public void refresh() throws IOException {
         screen.refresh();
     }
@@ -148,6 +167,7 @@ public class Lanterna implements GUI {
     public Screen getScreen(){
         return this.screen;
     }
+
 
     public void clear(){
         screen.clear();
