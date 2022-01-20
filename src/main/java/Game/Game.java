@@ -2,14 +2,10 @@ package Game;
 
 import Position.Position;
 import ReadFile.ReadFile;
-import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
 import gui.GUI;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Game {
     private GUI gui;
@@ -47,7 +43,7 @@ public class Game {
 
                 nextStage(map.heroOnGate() + 1);
             }
-            if(player.getHp() <= 0) state = false;
+            //if(player.getHp() <= 0) state = false;
             long elapsedTime = System.currentTimeMillis() - startTime;
             long sleepTime = frameTime - elapsedTime;
 
@@ -57,7 +53,12 @@ public class Game {
             }
 
         }
-        gui.close();
+       // gui.close();
+    }
+
+
+    public void menuPause(){
+        //POR FAZER
     }
 
     private void processKey(GUI.ACTION action) {

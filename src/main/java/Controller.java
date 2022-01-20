@@ -15,9 +15,10 @@ public class Controller {
         menu = new Menu(gui);
     }
 
-
     void run() throws IOException, URISyntaxException, FontFormatException {
+        boolean stateControl = true;
 
+            while(stateControl){
             switch (menu.selectOption()) {
 
                 case 6:
@@ -31,7 +32,8 @@ public class Controller {
                     //Por fazer
 
                 case 0:
-                    System.exit(0);
+                    stateControl = false;
+                    gui.close();
             }
-        }
+        }}
     }

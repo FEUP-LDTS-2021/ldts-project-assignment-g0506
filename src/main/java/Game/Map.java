@@ -22,7 +22,7 @@ public class Map{
     private ReadFile file;
     private List<Monster> monsters;
     private List<Gate> gates;
-    long timeNow;
+    long timeLastMov,timeLastSpawn;
 
     public Map(GUI gui, Player player, String stage,Game game) throws URISyntaxException, IOException, FontFormatException {
         this.gui = gui;
@@ -31,15 +31,19 @@ public class Map{
         file = new ReadFile(stage);
         createWalls_Gates();
         monsters = new ArrayList<Monster>();
-        this.timeNow = 0;
+        this.timeLastMov = 0;
+        this.timeLastSpawn = 0;
         this.game = game;
     }
 
 
     public void run(long time) {
         Random rand = new Random();
+        if(time - timeLastSpawn > 1000){
         if(rand.nextBoolean() && monstersSize() < 10){
             addMonster();
+        }
+            timeLastSpawn = time;
         }
         moveMonsters(time);
 
@@ -173,7 +177,7 @@ public class Map{
 
     public void moveMonsters(long time){
         int counter=0;
-        if (time-timeNow>400) {
+        if (time-timeLastMov>400) {
 
         for(Monster monster: monsters){
             if (Math.abs(monster.getX()-player.getPosition().getX())<5 && Math.abs(monster.getY()-player.getPosition().getY())<5){
@@ -204,7 +208,7 @@ public class Map{
             }
             counter+=1;
         }
-            timeNow = time;
+            timeLastMov = time;
         }
     }
 
