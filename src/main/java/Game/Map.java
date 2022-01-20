@@ -2,8 +2,6 @@ package Game;
 import Position.Position;
 import ReadFile.ReadFile;
 import Viewers.ViewMap;
-import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
 import gui.GUI;
 import java.awt.*;
 import java.io.IOException;
@@ -11,7 +9,6 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.TimerTask;
 
 public class Map{
     GUI gui;
