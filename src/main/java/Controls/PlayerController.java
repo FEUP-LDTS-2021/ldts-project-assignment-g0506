@@ -95,4 +95,8 @@ public class PlayerController {
         }
         map.setMonsters(TempM);
     }
+
+    public boolean isAlive(){
+        return player.isAlive();
+    }
 }

@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static java.lang.Integer.parseInt;
+
 public class Map{
     GUI gui;
     Game game;
@@ -21,18 +23,24 @@ public class Map{
     private ReadFile file;
     private List<Monster> monsters;
     private List<Gate> gates;
-    long timeLastMov,timeLastSpawn;
+    private long timeLastMov,timeLastSpawn;
+    private int stage;
 
     public Map(GUI gui, Player player, String stage,Game game) throws URISyntaxException, IOException, FontFormatException {
         this.gui = gui;
         viewMap = new ViewMap(gui);
         this.player = player;
+        this.stage = parseInt(stage.substring(5, 6));
         file = new ReadFile(stage);
         createWalls_Gates();
         monsters = new ArrayList<Monster>();
         this.timeLastMov = 0;
         this.timeLastSpawn = 0;
         this.game = game;
+    }
+
+    public int getStage(){
+        return stage;
     }
 
     public List<Monster> getMonsters(){

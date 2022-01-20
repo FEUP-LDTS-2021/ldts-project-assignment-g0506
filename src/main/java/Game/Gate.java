@@ -9,18 +9,22 @@ public class Gate {
     public Gate(Position position, char sprite){
         this.position = position;
         this.sprite = "" + sprite;
-        load = setLoad(position.getX(), position.getY());
+        setLoad(position);
     }
 
     public String getSprite(){
         return sprite;
     }
 
-    public int setLoad(int x,int y){
-        if(y == 1) return 3;
-        if(y == 30) return -3;
-        else if( x == 0 ) return -1;
-        return 1;
+    public void setLoad(Position position){
+        switch (position.getX()) {
+            case 0 -> this.load = -1;
+            case 39 -> this.load = 1;
+        }
+        switch (position.getY()) {
+            case 0 -> this.load = 3;
+            case 23 -> this.load = -3;
+        }
     }
 
     public int getLoad(){

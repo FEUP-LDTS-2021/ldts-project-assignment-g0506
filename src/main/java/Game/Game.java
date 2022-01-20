@@ -42,9 +42,9 @@ public class Game {
             if(exit)
                 state = false;
 
-
-            if (player.heroOnGate() != 0) {
-                nextStage(player.heroOnGate()+1);
+            int nextStage = player.heroOnGate();
+            if (nextStage != 0) {
+                nextStage(map.getStage() + nextStage );
             }
             if (!player.isAlive()){
                 state=false;
@@ -73,7 +73,6 @@ public class Game {
 
     public void nextStage(int nextStageNumber) throws URISyntaxException, IOException, FontFormatException {
         String stage = "Stage" + nextStageNumber + ".txt";
-        System.out.println(nextStageNumber);
         setMap(gui, player.getPlayer(), stage);
     }
 

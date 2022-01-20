@@ -1,3 +1,4 @@
+import Controls.PlayerController;
 import Game.Game;
 import Game.Map;
 import Game.Player;
@@ -16,20 +17,21 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class MapTest {
     Position position=new Position(20,29);
-    Player player=new Player(position);
+    Player p = new Player(position);
     GUI gui=new Lanterna();
 
     String stage;
     Game game;
     ReadFile file=new ReadFile("Stage1.txt");
-    Map map= new Map(gui,player,"Stage1.txt",game);
+    Map map = new Map(gui,p,"Stage1.txt",game);
+    PlayerController player = new PlayerController(p, map);
     public MapTest() throws URISyntaxException, IOException, FontFormatException {
     }
     @Test
     void HeroOnGate(){
-        assertEquals(0,map.heroOnGate());
-        map.processKey(GUI.ACTION.UP);
-        assertNotEquals(0,map.heroOnGate());
+        assertEquals(0,player.heroOnGate());
+        player.processKey(GUI.ACTION.UP);
+        assertNotEquals(0,player.heroOnGate());
     }
 
 }
