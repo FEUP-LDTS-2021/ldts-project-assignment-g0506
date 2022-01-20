@@ -18,21 +18,17 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 public class Lanterna implements GUI {
-
-    private int width = 40;
-    private int height = 25;
     Screen screen;
 
     public Lanterna() throws URISyntaxException, IOException, FontFormatException {
-
         AWTTerminalFontConfiguration fontCfg = loadFont("square.ttf");
-
+        int width = 40;
+        int height = 25;
         Terminal terminal = newTerminal(width, height, fontCfg);
         screen = newScreen(terminal);
-
     }
 
-    public AWTTerminalFontConfiguration loadFont(String nameFont) throws URISyntaxException, IOException, FontFormatException {
+    public AWTTerminalFontConfiguration loadFont(String nameFont) throws URISyntaxException, IOException, FontFormatException{
         URL resource = getClass().getClassLoader().getResource(nameFont);
         File fontFile = new File(resource.toURI());
         Font font = Font.createFont(Font.TRUETYPE_FONT, fontFile);

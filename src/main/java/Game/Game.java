@@ -64,7 +64,7 @@ public class Game {
     }
 
     private void processKey(GUI.ACTION action) {
-        player.processKey(action, map.getMonsters(), map.getWalls());
+        map.setMonsters(player.processKey(action, map.getMonsters(), map.getWalls()));
     }
 
     public void nextStage(int nextStageNumber) throws URISyntaxException, IOException, FontFormatException {

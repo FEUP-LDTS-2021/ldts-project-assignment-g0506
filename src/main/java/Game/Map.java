@@ -50,6 +50,10 @@ public class Map{
         return gates;
     }
 
+    public void setMonsters(List<Monster> monsters){
+        this.monsters = monsters;
+    }
+
     public void run(long time) {
         Random rand = new Random();
         if(time - timeLastSpawn > 1000){

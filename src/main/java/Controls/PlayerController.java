@@ -43,6 +43,14 @@ public class PlayerController {
     public int heroOnGate(List<Gate> gates){
         for(Gate gate: gates) {
             if (player.getX()==gate.getPosition().getX()&&player.getY()==gate.getPosition().getY()) {
+                switch (gate.getPosition().getX()){
+                    case 39 -> player.setX(1);
+                    case 0 -> player.setX(38);
+                }
+                switch(gate.getPosition().getY()){
+                    case 0 -> player.setY(22);
+                    case 24 -> player.setY(1);
+                }
                 return gate.getLoad();
             }
         }
@@ -50,22 +58,12 @@ public class PlayerController {
     }
 
     public List<Monster> processKey(GUI.ACTION action, List<Monster> monsters, List<Wall> walls){
-        switch(action){
-            case UP:
-                moveHero(player.moveUp(), monsters, walls);
-                break;
-            case DOWN:
-                moveHero(player.moveDown(), monsters, walls);
-                break;
-            case LEFT:
-                moveHero(player.moveLeft(), monsters, walls);
-                break;
-            case RIGHT:
-                moveHero(player.moveRight(), monsters, walls);
-                break;
-            case ATTACK:
-                monsters = Attack(monsters);
-                break;
+        switch (action) {
+            case UP -> moveHero(player.moveUp(), monsters, walls);
+            case DOWN -> moveHero(player.moveDown(), monsters, walls);
+            case LEFT -> moveHero(player.moveLeft(), monsters, walls);
+            case RIGHT -> moveHero(player.moveRight(), monsters, walls);
+            case ATTACK -> monsters = Attack(monsters);
             /*case EXIT:
                 game.setState(false);
                 break;*/
@@ -74,19 +72,17 @@ public class PlayerController {
     }
 
     public List<Monster> Attack(List<Monster> monsters){
-        List<Monster> TempM = new ArrayList<Monster>();
-        for (int i=0; i<monsters.size();i++){
-            if (Math.abs(monsters.get(i).getX()-player.getPosition().getX())<=1 && Math.abs(monsters.get(i).getY()-player.getPosition().getY())<=1){
-                monsters.get(i).setHp(monsters.get(i).getHp()-(player.getAttack()-(monsters.get(i).getDefense()/5)));
-                if (monsters.get(i).getHp()<=0){
-                    player.monsterKill(monsters.get(i));
+        List<Monster> TempM = new ArrayList<>();
+        for (Monster monster : monsters) {
+            if (Math.abs(monster.getX() - player.getPosition().getX()) <= 1 && Math.abs(monster.getY() - player.getPosition().getY()) <= 1) {
+                monster.setHp(monster.getHp() - (player.getAttack() - (monster.getDefense() / 5)));
+                if (monster.getHp() <= 0) {
+                    player.monsterKill(monster);
+                } else {
+                    TempM.add(monster);
                 }
-                else{
-                    TempM.add(monsters.get(i));
-                }
-            }
-            else{
-                TempM.add(monsters.get(i));
+            } else {
+                TempM.add(monster);
             }
         }
         monsters=TempM;
