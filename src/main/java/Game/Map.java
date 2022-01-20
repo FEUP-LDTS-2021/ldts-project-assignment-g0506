@@ -192,7 +192,7 @@ public class Map{
                         player.setHp(player.getHp()-(monster.getAttack()-(player.getDefense()/5)));
                         monster.setAttackCounter(0);
                         if (player.getHp()<=0){
-                            //kill the player
+                            player.setAlive(false);
                         }
                     }
 

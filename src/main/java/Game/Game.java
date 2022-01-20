@@ -43,7 +43,9 @@ public class Game {
 
                 nextStage(map.heroOnGate() + 1);
             }
-            //if(player.getHp() <= 0) state = false;
+            if (!player.isAlive()){
+                state=false;
+            }
             long elapsedTime = System.currentTimeMillis() - startTime;
             long sleepTime = frameTime - elapsedTime;
 
