@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-    private int hp,hpI, attack, defense, stamina, speed, exp, gem, level;
+    private int hp,hpI, attack, defense, stamina, speed, exp, level;
     private Position position;
     private List<Weapon> weapons=new ArrayList<>();
+    private List<Coin> coins=new ArrayList<>();
+    private boolean alive;
 
     public Player(Position position){
         this.hp = 15;
@@ -22,8 +24,8 @@ public class Player {
         this.speed = 10;
         this.position = position;
         this.exp = 0;
-        this.gem = 0;
         this.level = 1;
+        this.alive=true;
         Weapon w=new Weapon(1, 5);
         weapons.add(w);
         if (weapons.get(0).getType()==1){
@@ -91,9 +93,6 @@ public class Player {
         this.exp = exp;
     }
 
-    public void setGem(int gem) {
-        this.gem = gem;
-    }
 
     public void setLevel(int level) {
         this.level = level;
@@ -132,9 +131,6 @@ public class Player {
         return exp;
     }
 
-    public int getGem() {
-        return gem;
-    }
 
     public int getLevel() {
         return level;
@@ -144,12 +140,32 @@ public class Player {
         return weapons;
     }
 
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
     public int getWeaponSize(){
         return getWeapons().size();
     }
 
     public void addWeapon(Weapon weapon){
         this.weapons.add(weapon);
+    }
+
+    public void addCoin(Coin coin){
+        this.coins.add(coin);
+    }
+
+    public List<Coin> getCoins() {
+        return coins;
+    }
+
+    public int getCoinsSize(){
+        return getCoins().size();
     }
 
     public void monsterKill(Monster monster){
@@ -173,7 +189,12 @@ public class Player {
             hpShow= hpShow.substring(0,2)+"%";
             return hpShow;
         }
-        if (hpPercent==0){
+        if (hpPercent<10){
+            hpShow=String.valueOf(hpPercent);
+            hpShow= hpShow.substring(0,1)+"%";
+        }
+        if (hpPercent<0){
+            hpPercent=0;
             hpShow=String.valueOf(hpPercent);
             hpShow= hpShow.substring(0,1)+"%";
         }

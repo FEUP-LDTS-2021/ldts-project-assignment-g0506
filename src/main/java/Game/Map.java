@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static java.lang.Integer.parseInt;
+
+
 public class Map{
     GUI gui;
     Game game;
@@ -19,12 +22,14 @@ public class Map{
     private ReadFile file;
     private List<Monster> monsters;
     private List<Gate> gates;
-    long timeLastMov,timeLastSpawn;
+    private long timeLastMov,timeLastSpawn;
+    private int stage;
 
     public Map(GUI gui, Player player, String stage,Game game) throws URISyntaxException, IOException, FontFormatException {
         this.gui = gui;
         viewMap = new ViewMap(gui);
         this.player = player;
+        this.stage = parseInt(stage.substring(5, 6));
         file = new ReadFile(stage);
         createWalls_Gates();
         monsters = new ArrayList<Monster>();
@@ -33,6 +38,25 @@ public class Map{
         this.game = game;
     }
 
+    public int getStage(){
+        return stage;
+    }
+
+    public List<Monster> getMonsters(){
+        return monsters;
+    }
+
+    public List<Wall> getWalls(){
+        return walls;
+    }
+
+    public List<Gate> getGates(){
+        return gates;
+    }
+
+    public void setMonsters(List<Monster> monsters){
+        this.monsters = monsters;
+    }
 
     public void run(long time) {
         Random rand = new Random();
@@ -68,48 +92,6 @@ public class Map{
         gui.refresh();
     }
 
-    public void processKey(GUI.ACTION action){
-        if(action == GUI.ACTION.UP)
-            moveHero(player.moveUp());
-        else if(action == GUI.ACTION.DOWN)
-            moveHero(player.moveDown());
-        else if(action == GUI.ACTION.LEFT)
-            moveHero(player.moveLeft());
-        else if(action == GUI.ACTION.RIGHT)
-            moveHero(player.moveRight());
-        else if (action == GUI.ACTION.ATTACK)
-            Attack();
-        else if(action == GUI.ACTION.EXIT)
-            game.setState(false);
-    }
-
-    private void moveHero(Position position) {
-        if (canHeroMove(position))
-            player.setPosition(position);
-    }
-
-    private boolean canHeroMove(Position position){
-        for (Monster monster: monsters){
-            if (position.getX()==monster.getX()&&position.getY()==monster.getY()){
-                return false;
-            }
-        }
-        for(Wall wall: walls){
-            if(position.getX()==wall.getX()&&position.getY()==wall.getY()){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public int heroOnGate(){
-        for(Gate gate: gates) {
-            if (player.getX()==gate.getPosition().getX()&&player.getY()==gate.getPosition().getY()) {
-                return gate.getLoad();
-            }
-        }
-        return 0;
-    }
 
     private boolean invalidMonsterMove(Monster m, int tempx, int tempy, int counter){
         for (Wall wall: walls){
@@ -189,7 +171,7 @@ public class Map{
                         player.setHp(player.getHp()-(monster.getAttack()-(player.getDefense()/5)));
                         monster.setAttackCounter(0);
                         if (player.getHp()<=0){
-                            //kill the player
+                            player.setAlive(false);
                         }
                     }
 
@@ -208,29 +190,8 @@ public class Map{
             timeLastMov = time;
         }
     }
-
     public int monstersSize(){
         return monsters.size();
     }
-
-    public void Attack(){
-        List<Monster> TempM = new ArrayList<Monster>();
-        for (int i=0; i<monstersSize();i++){
-            if (Math.abs(monsters.get(i).getX()-player.getPosition().getX())<=1 && Math.abs(monsters.get(i).getY()-player.getPosition().getY())<=1){
-                monsters.get(i).setHp(monsters.get(i).getHp()-(player.getAttack()-(monsters.get(i).getDefense()/5)));
-                if (monsters.get(i).getHp()<=0){
-                    player.monsterKill(monsters.get(i));
-                }
-                else{
-                    TempM.add(monsters.get(i));
-                }
-            }
-            else{
-                TempM.add(monsters.get(i));
-            }
-        }
-        monsters=TempM;
-    }
-
 }
 

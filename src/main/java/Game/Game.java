@@ -1,7 +1,9 @@
 package Game;
 
+import Controls.PlayerController;
 import Position.Position;
 import ReadFile.ReadFile;
+import com.googlecode.lanterna.input.KeyStroke;
 import gui.GUI;
 import java.awt.*;
 import java.io.IOException;
@@ -10,16 +12,16 @@ import java.net.URISyntaxException;
 public class Game {
     private GUI gui;
     private Map map;
-    private Player player;
+    private PlayerController player;
     private ReadFile file;
     boolean state;
 
     public Game(GUI gui) throws URISyntaxException, IOException, FontFormatException {
-        player = new Player(new Position(5, 5));
+        Player p = new Player(new Position(5, 5));
         this.gui = gui;
-        map = new Map(gui, player, "Stage1.txt", this);
+        map = new Map(gui, p, "Stage1.txt", this);
         this.state = true;
-
+        player = new PlayerController(p, map);
     }
 
     private void draw(long time) throws IOException {
@@ -34,22 +36,26 @@ public class Game {
 
         while (state) {
             long startTime = System.currentTimeMillis();
-
             draw(startTime);
-            processKey(gui.getKeyCommand());
 
+            boolean exit = processKey(gui.getKeyCommand());
+            if(exit)
+                state = false;
 
-            if (map.heroOnGate() != 0) {
-
-                nextStage(map.heroOnGate() + 1);
+            int nextStage = player.heroOnGate();
+            if (nextStage != 0) {
+                nextStage(map.getStage() + nextStage );
             }
-            //if(player.getHp() <= 0) state = false;
+            if (!player.isAlive()){
+                state=false;
+            }
             long elapsedTime = System.currentTimeMillis() - startTime;
             long sleepTime = frameTime - elapsedTime;
 
             try {
                 if (sleepTime > 0) Thread.sleep(sleepTime);
             } catch (InterruptedException e) {
+                System.out.println(e);
             }
 
         }
@@ -61,15 +67,13 @@ public class Game {
         //POR FAZER
     }
 
-    private void processKey(GUI.ACTION action) {
-        map.processKey(action);
+    private boolean processKey(GUI.ACTION action) {
+        return player.processKey(action);
     }
 
     public void nextStage(int nextStageNumber) throws URISyntaxException, IOException, FontFormatException {
-        player.setY(23); //so para teste
         String stage = "Stage" + nextStageNumber + ".txt";
-        System.out.println(nextStageNumber);
-        setMap(gui, player, stage);
+        setMap(gui, player.getPlayer(), stage);
     }
 
     public void setMap(GUI gui, Player player, String stage) throws URISyntaxException, IOException, FontFormatException {
