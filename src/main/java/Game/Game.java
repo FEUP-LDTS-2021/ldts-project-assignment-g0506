@@ -1,5 +1,6 @@
 package Game;
 
+import Controls.PlayerController;
 import Position.Position;
 import ReadFile.ReadFile;
 import gui.GUI;
@@ -10,16 +11,16 @@ import java.net.URISyntaxException;
 public class Game {
     private GUI gui;
     private Map map;
-    private Player player;
+    private PlayerController player;
     private ReadFile file;
     boolean state;
 
     public Game(GUI gui) throws URISyntaxException, IOException, FontFormatException {
-        player = new Player(new Position(5, 5));
+        Player p = new Player(new Position(5, 5));
         this.gui = gui;
-        map = new Map(gui, player, "Stage1.txt", this);
+        map = new Map(gui, p, "Stage1.txt", this);
         this.state = true;
-
+        player = new PlayerController(p);
     }
 
     private void draw(long time) throws IOException {
@@ -39,9 +40,9 @@ public class Game {
             processKey(gui.getKeyCommand());
 
 
-            if (map.heroOnGate() != 0) {
+            if (player.heroOnGate(map.getGates()) != 0) {
 
-                nextStage(map.heroOnGate() + 1);
+                nextStage(player.heroOnGate(map.getGates()) + 1);
             }
             //if(player.getHp() <= 0) state = false;
             long elapsedTime = System.currentTimeMillis() - startTime;
@@ -50,6 +51,7 @@ public class Game {
             try {
                 if (sleepTime > 0) Thread.sleep(sleepTime);
             } catch (InterruptedException e) {
+                System.out.println(e);
             }
 
         }
@@ -62,14 +64,13 @@ public class Game {
     }
 
     private void processKey(GUI.ACTION action) {
-        map.processKey(action);
+        player.processKey(action, map.getMonsters(), map.getWalls());
     }
 
     public void nextStage(int nextStageNumber) throws URISyntaxException, IOException, FontFormatException {
-        player.setY(23); //so para teste
         String stage = "Stage" + nextStageNumber + ".txt";
         System.out.println(nextStageNumber);
-        setMap(gui, player, stage);
+        setMap(gui, player.getPlayer(), stage);
     }
 
     public void setMap(GUI gui, Player player, String stage) throws URISyntaxException, IOException, FontFormatException {
