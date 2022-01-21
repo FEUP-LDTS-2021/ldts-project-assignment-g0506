@@ -194,5 +194,25 @@ public class Map{
     public int monstersSize(){
         return monsters.size();
     }
+
+    public void Attack(){
+        List<Monster> TempM = new ArrayList<Monster>();
+        for (int i=0; i<monstersSize();i++){
+            if (Math.abs(monsters.get(i).getX()-player.getPosition().getX())<=1 && Math.abs(monsters.get(i).getY()-player.getPosition().getY())<=1){
+                monsters.get(i).setHp(monsters.get(i).getHp()-(player.getAttack()-(monsters.get(i).getDefense()/5)));
+                if (monsters.get(i).getHp()<=0){
+                    player.monsterKill(monsters.get(i));
+                }
+                else{
+                    monsters.get(i).monsterKnockback(player.getPosition());
+                    TempM.add(monsters.get(i));
+                }
+            }
+            else{
+                TempM.add(monsters.get(i));
+            }
+        }
+        monsters=TempM;
+    }
 }
 
