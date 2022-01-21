@@ -2,12 +2,15 @@ package Game;
 
 import Controls.PlayerController;
 import Position.Position;
+import ReadFile.ReadFile;
 import ReadFile.SaveFile;
 import Viewers.PMenu;
 import gui.GUI;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Game {
     private GUI gui;
@@ -15,6 +18,7 @@ public class Game {
     private PlayerController player;
     boolean state;
     private PMenu pmenu;
+    private SaveFile save;
 
     public Game(GUI gui) throws URISyntaxException, IOException, FontFormatException {
         Player p = new Player(new Position(5, 5));
@@ -23,6 +27,25 @@ public class Game {
         this.state = true;
         player = new PlayerController(p, map);
         this.pmenu = new PMenu(gui);
+        save = new SaveFile(Integer.toString(map.getStage()),player.getPosition(), player.getHP(), player.getLevel(), player.getEXP(), player.getWeapons());
+    }
+
+    public Game(GUI gui, String filename) throws URISyntaxException, IOException, FontFormatException {
+        ReadFile saveState = new ReadFile(filename);
+        List<String> lines = saveState.getMap();
+        String stage = lines.get(0);
+        Position pos = new Position(Integer.parseInt(lines.get(1).substring(0,1)),Integer.parseInt(lines.get(1).substring(2,3)));
+        int hp = Integer.parseInt(lines.get(2));
+        int level = Integer.parseInt(lines.get(3));
+        int exp = Integer.parseInt(lines.get(4));
+        String []arr = lines.get(5).split(" ");
+        List<Weapon> weapons = new ArrayList<>();
+        for(String str : arr){
+            Weapon weapon = new Weapon(Integer.parseInt(str.substring(0,1)), Integer.parseInt(str.substring(1)));
+            weapons.add(weapon);
+        }
+        Player p = new Player(pos, hp, level, exp, weapons);
+        this.map = new Map(gui, p, stage, this);
     }
 
     private void draw(long time) throws IOException {
@@ -49,7 +72,6 @@ public class Game {
                         case 6:
                             break;
                         case 8:
-                            SaveFile save = new SaveFile(Integer.toString(map.getStage()),player.getPosition(), player.getHP(), player.getLevel(), player.getEXP(), player.getWeapons());
                             save.SaveGame();
                             break;
                         case 10:

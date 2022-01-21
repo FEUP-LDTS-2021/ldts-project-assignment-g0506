@@ -31,6 +31,9 @@ public class SaveFile {
             File file = new File(filename);
             if (file.createNewFile()) {
                 WriteToFile(file);
+                File f = new File("Saves");
+                FileWriter fW = new FileWriter(f);
+                fW.write(filename);
             } else {
                file.delete();
                file = new File(filename);
@@ -51,7 +54,7 @@ public class SaveFile {
             myWriter.write(exp);
             String w = "";
             for(Weapon weapon: weapons) {
-                w += (Integer.toString(weapon.getType()) + " ");
+                w += (Integer.toString(weapon.getType()) + weapon.getBoost()) + " ";
             }
             myWriter.write(w);
             myWriter.close();
