@@ -44,6 +44,7 @@ public class Game {
 
             int nextStage = player.heroOnGate();
             if (nextStage != 0) {
+                System.out.println(nextStage);
                 nextStage(map.getStage() + nextStage );
             }
             if (!player.isAlive()){
