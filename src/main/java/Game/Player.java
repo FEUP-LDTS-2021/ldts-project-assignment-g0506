@@ -11,14 +11,14 @@ import java.util.List;
 public class Player {
     private int hp,hpI, attack, defense, stamina, speed, exp, level;
     private Position position;
-    private List<Weapon> weapons=new ArrayList<>();
-    private List<Coin> coins=new ArrayList<>();
+    private List<Weapon> weapons;
+    private List<Coin> coins;
     private boolean alive;
 
     public Player(Position position){
         this.hp = 15;
         this.hpI=15;
-        this.attack = 10;
+        this.attack = 5;
         this.defense = 10;
         this.stamina = 10;
         this.speed = 10;
@@ -26,7 +26,8 @@ public class Player {
         this.exp = 0;
         this.level = 1;
         this.alive=true;
-        Weapon w=new Weapon(1, 5);
+        weapons = new ArrayList<Weapon>();
+        Weapon w = new Weapon(1, 5);
         weapons.add(w);
         if (weapons.get(0).getType()==1){
             this.attack+=weapons.get(0).getBoost()/5;
@@ -34,7 +35,22 @@ public class Player {
         else{
             this.defense+=weapons.get(0).getBoost()/5;
         }
+        coins = new ArrayList<Coin>();
+    }
 
+    public Player(Position position, int hp, int level, int exp, List<Weapon> weapons){
+        this.position = position;
+        this.hp = hp;
+        this.level = level;
+        this.exp = exp;
+        this.weapons = weapons;
+        this.hpI = level*5+15;
+        this.attack = level*5+10;
+        this.defense = level*5+10;
+        this.stamina = level*5+10;
+        this.speed = level*5+10;
+        this.alive = true;
+        coins = new ArrayList<Coin>();
     }
 
     public Position moveUp(){
@@ -56,10 +72,10 @@ public class Player {
     public Position getPosition() {
         return position;
     }
+
     public void setPosition(Position position) {
         this.position = position;
     }
-
 
     public void setHp(int hp) {
         this.hp = hp;
@@ -93,7 +109,6 @@ public class Player {
         this.exp = exp;
     }
 
-
     public void setLevel(int level) {
         this.level = level;
     }
@@ -126,11 +141,9 @@ public class Player {
         return position.getY();
     }
 
-
     public int getExp() {
         return exp;
     }
-
 
     public int getLevel() {
         return level;

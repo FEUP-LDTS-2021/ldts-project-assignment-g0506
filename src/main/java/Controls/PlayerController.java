@@ -56,7 +56,7 @@ public class PlayerController {
         return 0;
     }
 
-    public boolean processKey(GUI.ACTION action){
+    public int processKey(GUI.ACTION action){
         switch (action) {
             case UP:
                 moveHero(player.moveUp());
@@ -74,9 +74,11 @@ public class PlayerController {
                 Attack();
                 break;
             case EXIT:
-                return true;
+                return 1;
+            case SELECT:
+                return 2;
         }
-        return false;
+        return 0;
     }
 
     public void Attack(){
@@ -98,5 +100,25 @@ public class PlayerController {
 
     public boolean isAlive(){
         return player.isAlive();
+    }
+
+    public int getHP(){
+        return player.getHp();
+    }
+
+    public int getEXP(){
+        return player.getExp();
+    }
+
+    public int getLevel(){
+        return player.getLevel();
+    }
+
+    public List<Weapon> getWeapons(){
+        return player.getWeapons();
+    }
+
+    public Position getPosition(){
+        return player.getPosition();
     }
 }

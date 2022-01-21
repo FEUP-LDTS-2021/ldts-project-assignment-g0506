@@ -142,17 +142,26 @@ public class Lanterna implements GUI {
     @Override
     public ACTION getKeyCommand() throws IOException {
         KeyStroke keyStroke = screen.pollInput();
-        if (keyStroke == null) return ACTION.NONE;
-
-        if (keyStroke.getKeyType() == KeyType.EOF) return ACTION.QUIT;
-        if (keyStroke.getKeyType() == KeyType.Escape) return ACTION.QUIT;
-
-        if (keyStroke.getKeyType() == KeyType.ArrowUp) return ACTION.UP;
-        if (keyStroke.getKeyType() == KeyType.ArrowRight) return ACTION.RIGHT;
-        if (keyStroke.getKeyType() == KeyType.ArrowDown) return ACTION.DOWN;
-        if (keyStroke.getKeyType() == KeyType.ArrowLeft) return ACTION.LEFT;
-        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'q') return ACTION.EXIT;
-        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == ' ') return ACTION.ATTACK;
+        if(keyStroke==null)
+            return ACTION.NONE;
+        switch(keyStroke.getKeyType()){
+            case EOF:
+            case Escape:
+                return ACTION.QUIT;
+            case ArrowUp:
+                return ACTION.UP;
+            case ArrowDown:
+                return ACTION.DOWN;
+            case ArrowLeft:
+                return ACTION.LEFT;
+            case ArrowRight:
+                return ACTION.RIGHT;
+            case Character:
+                if(keyStroke.getCharacter()=='q') return ACTION.EXIT;
+                else if(keyStroke.getCharacter()==' ') return ACTION.ATTACK;
+            case Backspace:
+                return ACTION.SELECT;
+        }
         return ACTION.NONE;
     }
 

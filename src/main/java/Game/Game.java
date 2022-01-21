@@ -2,8 +2,8 @@ package Game;
 
 import Controls.PlayerController;
 import Position.Position;
-import ReadFile.ReadFile;
-import com.googlecode.lanterna.input.KeyStroke;
+import ReadFile.SaveFile;
+import Viewers.PMenu;
 import gui.GUI;
 import java.awt.*;
 import java.io.IOException;
@@ -13,8 +13,8 @@ public class Game {
     private GUI gui;
     private Map map;
     private PlayerController player;
-    private ReadFile file;
     boolean state;
+    private PMenu pmenu;
 
     public Game(GUI gui) throws URISyntaxException, IOException, FontFormatException {
         Player p = new Player(new Position(5, 5));
@@ -22,6 +22,7 @@ public class Game {
         map = new Map(gui, p, "Stage1.txt", this);
         this.state = true;
         player = new PlayerController(p, map);
+        this.pmenu = new PMenu(gui);
     }
 
     private void draw(long time) throws IOException {
@@ -38,27 +39,44 @@ public class Game {
             long startTime = System.currentTimeMillis();
             draw(startTime);
 
-            boolean exit = processKey(gui.getKeyCommand());
-            if(exit)
-                state = false;
-
+            int exit = processKey(gui.getKeyCommand());
+            switch(exit) {
+                case 1:
+                    state = false;
+                    break;
+                case 2:
+                    switch(pmenu.selectOption()){
+                        case 6:
+                            break;
+                        case 8:
+                            SaveFile save = new SaveFile(Integer.toString(map.getStage()),player.getPosition(), player.getHP(), player.getLevel(), player.getEXP(), player.getWeapons());
+                            save.SaveGame();
+                            break;
+                        case 10:
+                            state = false;
+                            break;
+                    }
+                    break;
+                case 0:
+                    break;
+            }
             int nextStage = player.heroOnGate();
             if (nextStage != 0) {
-                System.out.println(nextStage);
                 nextStage(map.getStage() + nextStage );
+
             }
+
             if (!player.isAlive()){
                 state=false;
             }
+
             long elapsedTime = System.currentTimeMillis() - startTime;
             long sleepTime = frameTime - elapsedTime;
-
             try {
                 if (sleepTime > 0) Thread.sleep(sleepTime);
             } catch (InterruptedException e) {
                 System.out.println(e);
             }
-
         }
        // gui.close();
     }
@@ -68,7 +86,7 @@ public class Game {
         //POR FAZER
     }
 
-    private boolean processKey(GUI.ACTION action) {
+    private int processKey(GUI.ACTION action) {
         return player.processKey(action);
     }
 
