@@ -1,4 +1,5 @@
 import Game.Game;
+import Viewers.PauseMenu;
 import gui.GUI;
 import gui.Lanterna;
 

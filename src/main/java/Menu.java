@@ -16,11 +16,9 @@ public class Menu {
     public Menu(GUI gui) throws URISyntaxException, IOException, FontFormatException {
         this.gui = gui;
         viewMenu = new ViewMenu(gui);
-
 }
 
     int selectOption() throws IOException{
-
         while(true){
             viewMenu.drawSelectMenu(gui,cursorY);
             KeyStroke key = gui.getScreen().readInput();
@@ -39,7 +37,6 @@ public class Menu {
 
 
     private void processKey(KeyStroke key) {
-
         if(key.getKeyType() == KeyType.ArrowUp){
             if(cursorY == 6)
                 cursorY = 12;
