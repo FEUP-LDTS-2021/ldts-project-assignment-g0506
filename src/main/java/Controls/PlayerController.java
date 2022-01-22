@@ -121,4 +121,8 @@ public class PlayerController {
     public Position getPosition(){
         return player.getPosition();
     }
+
+    public void setMap(Map map){
+        this.map=map;
+    }
 }

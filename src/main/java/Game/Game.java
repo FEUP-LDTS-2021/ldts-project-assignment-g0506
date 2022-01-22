@@ -53,6 +53,7 @@ public class Game {
                             save.SaveGame();
                             break;
                         case 10:
+                            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                             state = false;
                             break;
                     }
@@ -62,8 +63,7 @@ public class Game {
             }
             int nextStage = player.heroOnGate();
             if (nextStage != 0) {
-                nextStage(map.getStage() + nextStage );
-
+                nextStage(map.getStage() + nextStage);
             }
 
             if (!player.isAlive()){
@@ -78,7 +78,7 @@ public class Game {
                 System.out.println(e);
             }
         }
-       // gui.close();
+        // gui.close();
     }
 
 
@@ -95,8 +95,12 @@ public class Game {
         setMap(gui, player.getPlayer(), stage);
     }
 
-    public void setMap(GUI gui, Player player, String stage) throws URISyntaxException, IOException, FontFormatException {
-        map = new Map(gui, player, stage, this);
+    public void setMap(GUI gui, Player player3, String stage) throws URISyntaxException, IOException, FontFormatException {
+        map.getGates().clear();
+        map.getWalls().clear();
+        map = new Map(gui, player3, stage, this);
+        player.setMap(map);
+
     }
 
     public boolean getState() {

@@ -2,6 +2,8 @@ package Game;
 import Position.Position;
 import ReadFile.ReadFile;
 import Viewers.ViewMap;
+import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 import gui.GUI;
 import java.awt.*;
 import java.io.IOException;
@@ -11,7 +13,6 @@ import java.util.List;
 import java.util.Random;
 
 import static java.lang.Integer.parseInt;
-
 
 public class Map{
     GUI gui;
@@ -36,6 +37,7 @@ public class Map{
         this.timeLastMov = 0;
         this.timeLastSpawn = 0;
         this.game = game;
+        System.out.println(walls.size());
     }
 
     public int getStage(){
@@ -61,9 +63,9 @@ public class Map{
     public void run(long time) {
         Random rand = new Random();
         if(time - timeLastSpawn > 1000){
-        if(rand.nextBoolean() && monstersSize() < 10){
-            addMonster();
-        }
+            if(rand.nextBoolean() && monstersSize() < 10){
+                addMonster();
+            }
             timeLastSpawn = time;
         }
         moveMonsters(time);
@@ -80,8 +82,10 @@ public class Map{
                 if(line.charAt(j)=='*')
                     walls.add(new Wall(new Position(j,i),'*'));
 
+
                 if(line.charAt(j)=='+')
                     gates.add(new Gate(new Position(j,i), '+'));
+
             }
         }
     }
@@ -158,35 +162,35 @@ public class Map{
         int counter=0;
         if (time-timeLastMov>400) {
 
-        for(Monster monster: monsters){
-            if (Math.abs(monster.getX()-player.getPosition().getX())<5 && Math.abs(monster.getY()-player.getPosition().getY())<5){
-                int tempx=monster.getX(),tempy= monster.getY();
-                monster.changePosition(player.getPosition());
-                invalidMonsterMove(monster,tempx,tempy,counter);
-                if (Math.abs(monster.getX()-player.getPosition().getX())<=1 && Math.abs(monster.getY()-player.getPosition().getY())<=1){
-                    if (monster.getAttackCounter()<1){
-                        monster.setAttackCounter(1);
-                    }
-                    else{
-                        player.setHp(player.getHp()-(monster.getAttack()-(player.getDefense()/5)));
-                        monster.setAttackCounter(0);
-                        if (player.getHp()<=0){
-                            player.setAlive(false);
+            for(Monster monster: monsters){
+                if (Math.abs(monster.getX()-player.getPosition().getX())<5 && Math.abs(monster.getY()-player.getPosition().getY())<5){
+                    int tempx=monster.getX(),tempy= monster.getY();
+                    monster.changePosition(player.getPosition());
+                    invalidMonsterMove(monster,tempx,tempy,counter);
+                    if (Math.abs(monster.getX()-player.getPosition().getX())<=1 && Math.abs(monster.getY()-player.getPosition().getY())<=1){
+                        if (monster.getAttackCounter()<1){
+                            monster.setAttackCounter(1);
                         }
+                        else{
+                            player.setHp(player.getHp()-(monster.getAttack()-(player.getDefense()/5)));
+                            monster.setAttackCounter(0);
+                            if (player.getHp()<=0){
+                                player.setAlive(false);
+                            }
+                        }
+
                     }
 
                 }
-
-            }
-            else{
-                int tempx=monster.getX(),tempy= monster.getY();
-                monster.randomPosition();
-                while (!invalidMonsterMove(monster,tempx,tempy,counter)){
+                else{
+                    int tempx=monster.getX(),tempy= monster.getY();
                     monster.randomPosition();
+                    while (!invalidMonsterMove(monster,tempx,tempy,counter)){
+                        monster.randomPosition();
+                    }
                 }
+                counter+=1;
             }
-            counter+=1;
-        }
             timeLastMov = time;
         }
     }
@@ -213,5 +217,6 @@ public class Map{
         }
         monsters=TempM;
     }
+
 }
 

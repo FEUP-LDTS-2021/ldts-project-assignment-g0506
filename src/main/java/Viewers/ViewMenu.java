@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ViewMenu extends View {
-    final List<String> menuOptions = Arrays.asList("New game", "Resume Game", "Instructions","Exit");
+    final List<String> menuOptions = Arrays.asList("NEW GAME", "RESUME GAME", "INSTRUCTIONS","EXIT");
     public ViewMenu(GUI gui) throws URISyntaxException, IOException, FontFormatException {
         super(gui);
     }
