@@ -120,7 +120,7 @@ public class Lanterna implements GUI {
     public void drawWall(Position position,String sprite) {
         TextGraphics textGraphics = screen.newTextGraphics();
         textGraphics.putString(position.getX(),position.getY(),sprite);
-        writeText(position,sprite,"#336699","#A9A9A9");
+        writeText(position,sprite,"#336699","#00FF00");
     }
 
     public void drawMonster(Position position,String sprite){

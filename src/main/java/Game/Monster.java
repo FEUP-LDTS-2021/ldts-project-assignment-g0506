@@ -19,7 +19,7 @@ public class Monster {
                 this.defense = 5;
                 this.stamina = 5;
                 this.speed = 5;
-                this.sprite="!";
+                this.sprite="a";
                 break;
             case 2:
                 this.hp = 15;
@@ -35,7 +35,7 @@ public class Monster {
                 this.defense = 30;
                 this.stamina = 30;
                 this.speed = 30;
-                this.sprite="m";
+                this.sprite="b";
                 break;
             case 4:
                 this.hp = 50;
@@ -43,7 +43,7 @@ public class Monster {
                 this.defense = 50;
                 this.stamina = 50;
                 this.speed = 50;
-                this.sprite="M";
+                this.sprite="c";
         }
     }
 
