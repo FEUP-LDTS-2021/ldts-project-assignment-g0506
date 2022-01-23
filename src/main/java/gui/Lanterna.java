@@ -175,6 +175,7 @@ public class Lanterna implements GUI {
                 else if(keyStroke.getCharacter()=='4'){
                     return ACTION.W4;
                 }
+                return ACTION.NONE;
             case Backspace:
                 return ACTION.SELECT;
         }
