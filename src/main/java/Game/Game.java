@@ -113,11 +113,14 @@ public class Game {
 
     public void nextStage(int nextStageNumber) throws URISyntaxException, IOException, FontFormatException {
         String stage = "Stage" + nextStageNumber + ".txt";
+        map.getWalls().clear();
+        map.getGates().clear();
         setMap(gui, player.getPlayer(), stage);
     }
 
-    public void setMap(GUI gui, Player player, String stage) throws URISyntaxException, IOException, FontFormatException {
-        map = new Map(gui, player, stage, this);
+    public void setMap(GUI gui, Player player1, String stage) throws URISyntaxException, IOException, FontFormatException {
+        map = new Map(gui, player1, stage, this);
+        player.setMap(map);
     }
 
     public boolean getState() {
@@ -127,5 +130,7 @@ public class Game {
     public void setState(boolean state) {
         this.state = state;
     }
+
+
 }
 

@@ -121,9 +121,11 @@ public class PlayerController {
         for (Monster monster : map.getMonsters()) {
             if (Math.abs(monster.getX() - player.getPosition().getX()) <= 1 && Math.abs(monster.getY() - player.getPosition().getY()) <= 1) {
                 if (player.getWeapons().get(player.getWeaponIndex()).getType()==3){
-                    player.setHp(player.getHp()+((player.getAttack() - (monster.getDefense() / 5))/5));
-                    if (player.getHp() > player.getHpI()){
+                    if (player.getHp()+((player.getAttack() - (monster.getDefense() / 5))/5) > player.getHpI()){
                         player.setHp(player.getHpI());
+                    }
+                    else{
+                        player.setHp(player.getHp()+((player.getAttack() - (monster.getDefense() / 5))/5));
                     }
                 }
                 monster.setHp(monster.getHp() - (player.getAttack() - (monster.getDefense() / 5)));
@@ -164,5 +166,9 @@ public class PlayerController {
 
     public Position getPosition(){
         return player.getPosition();
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
     }
 }
