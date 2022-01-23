@@ -61,7 +61,6 @@ public class Game {
         while (state) {
             long startTime = System.currentTimeMillis();
             draw(startTime);
-
             int exit = processKey(gui.getKeyCommand());
             switch(exit) {
                 case 1:
@@ -100,7 +99,7 @@ public class Game {
                 System.out.println(e);
             }
         }
-        // gui.close();
+       // gui.close();
     }
 
 
@@ -114,15 +113,14 @@ public class Game {
 
     public void nextStage(int nextStageNumber) throws URISyntaxException, IOException, FontFormatException {
         String stage = "Stage" + nextStageNumber + ".txt";
+        map.getWalls().clear();
+        map.getGates().clear();
         setMap(gui, player.getPlayer(), stage);
     }
 
-    public void setMap(GUI gui, Player player3, String stage) throws URISyntaxException, IOException, FontFormatException {
-        map.getGates().clear();
-        map.getWalls().clear();
-        map = new Map(gui, player3, stage, this);
+    public void setMap(GUI gui, Player player1, String stage) throws URISyntaxException, IOException, FontFormatException {
+        map = new Map(gui, player1, stage, this);
         player.setMap(map);
-
     }
 
     public boolean getState() {
@@ -132,5 +130,7 @@ public class Game {
     public void setState(boolean state) {
         this.state = state;
     }
+
+
 }
 

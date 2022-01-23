@@ -50,6 +50,8 @@ public class ViewMap extends View {
         gui.writeText(new Position(8,24), player.healthCount(), "#000000","#FFFFFF");
         gui.writeText(new Position(13,24), "LEVEL:", "#000000","#FFFFFF");
         gui.writeText(new Position(19,24), player.getLevelString(), "#000000","#FFFFFF");
+        gui.writeText(new Position(21,24), "WEAPON:", "#000000","#FFFFFF");
+        gui.writeText(new Position(28,24), player.ChosenWeapon(), "#000000","#FFFFFF");
 
     }
 }

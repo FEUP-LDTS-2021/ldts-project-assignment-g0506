@@ -157,8 +157,25 @@ public class Lanterna implements GUI {
             case ArrowRight:
                 return ACTION.RIGHT;
             case Character:
-                if(keyStroke.getCharacter()=='q') return ACTION.EXIT;
-                else if(keyStroke.getCharacter()==' ') return ACTION.ATTACK;
+                if(keyStroke.getCharacter()=='q'){
+                    return ACTION.EXIT;
+                }
+                else if(keyStroke.getCharacter()==' '){
+                    return ACTION.ATTACK;
+                }
+                else if(keyStroke.getCharacter()=='1'){
+                    return ACTION.W1;
+                }
+                else if(keyStroke.getCharacter()=='2'){
+                    return ACTION.W2;
+                }
+                else if(keyStroke.getCharacter()=='3'){
+                    return ACTION.W3;
+                }
+                else if(keyStroke.getCharacter()=='4'){
+                    return ACTION.W4;
+                }
+                return ACTION.NONE;
             case Backspace:
                 return ACTION.SELECT;
         }

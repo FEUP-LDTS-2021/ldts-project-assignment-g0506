@@ -37,7 +37,6 @@ public class Map{
         this.timeLastMov = 0;
         this.timeLastSpawn = 0;
         this.game = game;
-        System.out.println(walls.size());
     }
 
     public int getStage(){
@@ -63,9 +62,9 @@ public class Map{
     public void run(long time) {
         Random rand = new Random();
         if(time - timeLastSpawn > 1000){
-            if(rand.nextBoolean() && monstersSize() < 10){
-                addMonster();
-            }
+        if(rand.nextBoolean() && monstersSize() < 10){
+            addMonster();
+        }
             timeLastSpawn = time;
         }
         moveMonsters(time);
@@ -82,10 +81,8 @@ public class Map{
                 if(line.charAt(j)=='*')
                     walls.add(new Wall(new Position(j,i),'*'));
 
-
                 if(line.charAt(j)=='+')
                     gates.add(new Gate(new Position(j,i), '+'));
-
             }
         }
     }
@@ -162,35 +159,41 @@ public class Map{
         int counter=0;
         if (time-timeLastMov>400) {
 
-            for(Monster monster: monsters){
-                if (Math.abs(monster.getX()-player.getPosition().getX())<5 && Math.abs(monster.getY()-player.getPosition().getY())<5){
-                    int tempx=monster.getX(),tempy= monster.getY();
-                    monster.changePosition(player.getPosition());
-                    invalidMonsterMove(monster,tempx,tempy,counter);
-                    if (Math.abs(monster.getX()-player.getPosition().getX())<=1 && Math.abs(monster.getY()-player.getPosition().getY())<=1){
-                        if (monster.getAttackCounter()<1){
-                            monster.setAttackCounter(1);
+        for(Monster monster: monsters){
+            if (Math.abs(monster.getX()-player.getPosition().getX())<5 && Math.abs(monster.getY()-player.getPosition().getY())<5){
+                int tempx=monster.getX(),tempy= monster.getY();
+                monster.changePosition(player.getPosition());
+                invalidMonsterMove(monster,tempx,tempy,counter);
+                if (Math.abs(monster.getX()-player.getPosition().getX())<=1 && Math.abs(monster.getY()-player.getPosition().getY())<=1){
+                    if (monster.getAttackCounter()<1){
+                        monster.setAttackCounter(1);
+                    }
+                    else{
+                        if (player.getWeapons().get(player.getWeaponIndex()).getType()==2){
+                            player.setDefense(player.getDefense()+(player.getWeapons().get(player.getWeaponIndex()).getBoost()/5));
                         }
-                        else{
-                            player.setHp(player.getHp()-(monster.getAttack()-(player.getDefense()/5)));
-                            monster.setAttackCounter(0);
-                            if (player.getHp()<=0){
-                                player.setAlive(false);
-                            }
+                        player.setHp(player.getHp()-(monster.getAttack()-(player.getDefense()/5)));
+                        if (player.getWeapons().get(player.getWeaponIndex()).getType()==2){
+                            player.setDefense(player.getDefense()-(player.getWeapons().get(player.getWeaponIndex()).getBoost()/5));
                         }
-
+                        monster.setAttackCounter(0);
+                        if (player.getHp()<=0){
+                            player.setAlive(false);
+                        }
                     }
 
                 }
-                else{
-                    int tempx=monster.getX(),tempy= monster.getY();
-                    monster.randomPosition();
-                    while (!invalidMonsterMove(monster,tempx,tempy,counter)){
-                        monster.randomPosition();
-                    }
-                }
-                counter+=1;
+
             }
+            else{
+                int tempx=monster.getX(),tempy= monster.getY();
+                monster.randomPosition();
+                while (!invalidMonsterMove(monster,tempx,tempy,counter)){
+                    monster.randomPosition();
+                }
+            }
+            counter+=1;
+        }
             timeLastMov = time;
         }
     }
@@ -198,25 +201,6 @@ public class Map{
         return monsters.size();
     }
 
-    public void Attack(){
-        List<Monster> TempM = new ArrayList<Monster>();
-        for (int i=0; i<monstersSize();i++){
-            if (Math.abs(monsters.get(i).getX()-player.getPosition().getX())<=1 && Math.abs(monsters.get(i).getY()-player.getPosition().getY())<=1){
-                monsters.get(i).setHp(monsters.get(i).getHp()-(player.getAttack()-(monsters.get(i).getDefense()/5)));
-                if (monsters.get(i).getHp()<=0){
-                    player.monsterKill(monsters.get(i));
-                }
-                else{
-                    monsters.get(i).monsterKnockback(player.getPosition());
-                    TempM.add(monsters.get(i));
-                }
-            }
-            else{
-                TempM.add(monsters.get(i));
-            }
-        }
-        monsters=TempM;
-    }
 
 }
 
