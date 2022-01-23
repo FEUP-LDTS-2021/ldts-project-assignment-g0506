@@ -61,7 +61,6 @@ public class Game {
         while (state) {
             long startTime = System.currentTimeMillis();
             draw(startTime);
-
             int exit = processKey(gui.getKeyCommand());
             switch(exit) {
                 case 1:

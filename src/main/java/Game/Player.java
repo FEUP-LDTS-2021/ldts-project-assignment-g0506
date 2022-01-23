@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-    private int hp,hpI, attack, defense, stamina, speed, exp, level;
+    private int hp,hpI, attack, defense, stamina, speed, exp, level, weaponIndex;
     private Position position;
     private List<Weapon> weapons;
     private List<Coin> coins;
@@ -27,15 +27,16 @@ public class Player {
         this.level = 1;
         this.alive=true;
         weapons = new ArrayList<Weapon>();
-        Weapon w = new Weapon(1, 5);
+        Weapon w = new Weapon(1, 10);
+        Weapon w1 = new Weapon(2, 5);
+        Weapon w2 = new Weapon(3, 5);
+        Weapon w3 = new Weapon(2, 10);
         weapons.add(w);
-        if (weapons.get(0).getType()==1){
-            this.attack+=weapons.get(0).getBoost()/5;
-        }
-        else{
-            this.defense+=weapons.get(0).getBoost()/5;
-        }
+        weapons.add(w1);
+        weapons.add(w2);
+        weapons.add(w3);
         coins = new ArrayList<Coin>();
+        this.weaponIndex=0;
     }
 
     public Player(Position position, int hp, int level, int exp, List<Weapon> weapons){
@@ -149,6 +150,10 @@ public class Player {
         return level;
     }
 
+    public int getHpI() {
+        return hpI;
+    }
+
     public List<Weapon> getWeapons() {
         return weapons;
     }
@@ -221,4 +226,16 @@ public class Player {
         return Integer.toString(level);
     }
 
+    public void setWeaponIndex(int weaponIndex) {
+        this.weaponIndex = weaponIndex;
+    }
+
+    public int getWeaponIndex() {
+        return weaponIndex;
+    }
+
+    public String ChosenWeapon(){
+        String text=String.valueOf(weaponIndex+1);
+        return text+=" "+weapons.get(weaponIndex).getWeapon();
+    }
 }
