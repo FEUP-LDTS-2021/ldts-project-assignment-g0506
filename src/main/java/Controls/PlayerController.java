@@ -36,6 +36,11 @@ public class PlayerController {
                 return false;
             }
         }
+        for(Gate gate: map.getGates()){
+            if (position.getX()==gate.getPosition().getX()&&position.getY()==gate.getPosition().getY()&&(map.getStage()+gate.getLoad())*3 > player.getLevel()){
+                return false;
+            }
+        }
         return true;
     }
 
