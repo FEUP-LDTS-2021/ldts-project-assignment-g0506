@@ -182,6 +182,18 @@ public class Lanterna implements GUI {
         return ACTION.NONE;
     }
 
+    public void drawAttack(Position position) throws IOException {
+        writeText(new Position(position.getX()-1,position.getY()-1),"j","#336699","#000000");
+        writeText(new Position(position.getX(),position.getY()-1),"f","#336699","#000000");
+        writeText(new Position(position.getX()+1,position.getY()-1),"i","#336699","#000000");
+        writeText(new Position(position.getX()-1,position.getY()),"e","#336699","#000000");
+        writeText(new Position(position.getX()+1,position.getY()),"$","#336699","#000000");
+        writeText(new Position(position.getX()-1,position.getY()+1),"k","#336699","#000000");
+        writeText(new Position(position.getX(),position.getY()+1),"g","#336699","#000000");
+        writeText(new Position(position.getX()+1,position.getY()+1),"h","#336699","#000000");
+        refresh();
+    }
+
     public void refresh() throws IOException {
         screen.refresh();
     }

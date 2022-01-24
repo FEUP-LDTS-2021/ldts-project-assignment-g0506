@@ -77,7 +77,7 @@ public class PlayerController {
                 break;
             case ATTACK:
                 Attack();
-                break;
+                return 3;
             case EXIT:
                 return 1;
             case SELECT:

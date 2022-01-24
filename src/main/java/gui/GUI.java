@@ -32,6 +32,8 @@ public interface GUI {
 
      void drawMonster(Position position,String sprite);
 
+     void drawAttack(Position position) throws IOException;
+
      void close() throws IOException;
 
      Screen getScreen();

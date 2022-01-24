@@ -59,9 +59,11 @@ public class Game {
         int frameTime = 1000 / FPS;
 
         while (state) {
+
             long startTime = System.currentTimeMillis();
             draw(startTime);
             int exit = processKey(gui.getKeyCommand());
+
             switch(exit) {
                 case 1:
                     state = false;
@@ -74,14 +76,17 @@ public class Game {
                             save.SaveGame();
                             break;
                         case 10:
-                            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                             state = false;
                             break;
                     }
                     break;
+                case 3:
+                    gui.drawAttack(player.getPosition());
+                    break;
                 case 0:
                     break;
             }
+
             int nextStage = player.heroOnGate();
             if (nextStage != 0) {
                 nextStage(map.getStage() + nextStage);
@@ -99,7 +104,6 @@ public class Game {
                 System.out.println(e);
             }
         }
-       // gui.close();
     }
 
 
