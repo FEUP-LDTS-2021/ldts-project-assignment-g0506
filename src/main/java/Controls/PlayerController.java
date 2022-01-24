@@ -136,7 +136,15 @@ public class PlayerController {
                 monster.setHp(monster.getHp() - (player.getAttack() - (monster.getDefense() / 5)));
                 if (monster.getHp() <= 0) {
                     player.monsterKill(monster);
+                    if (monster.getType()==4){
+                        player.getKillReward().set(1,player.getKillReward().get(1)+1);
+                    }
+                    else if (monster.getType()==1){
+
+                        player.getKillReward().set(0,player.getKillReward().get(0)+1);
+                    }
                 } else {
+                    monster.monsterKnockback(player.getPosition());
                     TempM.add(monster);
                 }
             } else {

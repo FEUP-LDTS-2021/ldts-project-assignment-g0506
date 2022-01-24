@@ -8,17 +8,17 @@ public class Weapon {
             case 1:
                 this.type = 1;
                 this.boost=power;
-                this.weapon= "Sword";
+                this.weapon= "SWORD";
                 break;
             case 2:
                 this.type = 2;
                 this.boost = power;
-                this.weapon="Shield";
+                this.weapon="SHIELD";
                 break;
             case 3:
                 this.type = 3;
                 this.boost = power;
-                this.weapon = "Life Sword";
+                this.weapon = "LIFE SWORD";
                 break;
         }
     }

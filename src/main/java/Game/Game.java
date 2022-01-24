@@ -86,6 +86,17 @@ public class Game {
                 case 0:
                     break;
             }
+            if (player.getPlayer().getKillReward().get(1)==5){
+                Weapon weaponl= new Weapon(3,5);
+                player.getPlayer().addWeapon(weaponl);
+                player.getPlayer().getKillReward().set(1,6);
+            }
+            else if (player.getPlayer().getKillReward().get(0)==10){
+                Weapon weapond= new Weapon(2,10);
+                player.getPlayer().addWeapon(weapond);
+                player.getPlayer().getKillReward().set(0,11);
+            }
+
 
             int nextStage = player.heroOnGate();
             if (nextStage != 0) {

@@ -134,13 +134,13 @@ public class Map{
     public void addMonster(){
         Random random = new Random();
         int rarity= random.nextInt(400);
-        if (rarity>200){
+        if (rarity>100){
             rarity=1;
         }
-        else if (rarity>100){
+        else if (rarity>50){
             rarity=2;
         }
-        else if (rarity>20){
+        else if (rarity>10){
             rarity=3;
         }
         else if (rarity>0){

@@ -13,6 +13,7 @@ public class Player {
     private Position position;
     private List<Weapon> weapons;
     private List<Coin> coins;
+    private List<Integer> killReward;
     private boolean alive;
 
     public Player(Position position){
@@ -27,16 +28,17 @@ public class Player {
         this.level = 1;
         this.alive=true;
         weapons = new ArrayList<Weapon>();
+        killReward = new ArrayList<Integer>();
         Weapon w = new Weapon(1, 10);
         Weapon w1 = new Weapon(2, 5);
-        Weapon w2 = new Weapon(3, 5);
-        Weapon w3 = new Weapon(2, 10);
+        Weapon w3 = new Weapon(1,50);
         weapons.add(w);
-        weapons.add(w1);
-        weapons.add(w2);
-        weapons.add(w3);
         coins = new ArrayList<Coin>();
         this.weaponIndex=0;
+        int r1=0,r2=0,r3=0;
+        killReward.add(r1);
+        killReward.add(r2);
+        killReward.add(r3);
     }
 
     public Player(Position position, int hp, int level, int exp, List<Weapon> weapons){
@@ -238,4 +240,9 @@ public class Player {
         String text=String.valueOf(weaponIndex+1);
         return text+=" "+weapons.get(weaponIndex).getWeapon();
     }
+
+    public List<Integer> getKillReward() {
+        return killReward;
+    }
+
 }
