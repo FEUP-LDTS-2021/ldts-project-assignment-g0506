@@ -62,7 +62,7 @@ public class Game {
 
             long startTime = System.currentTimeMillis();
             draw(startTime);
-            int exit = processKey(gui.getKeyCommand());
+            int exit = processKey(gui.getKeyCommand(),startTime);
 
             switch(exit) {
                 case 1:
@@ -122,8 +122,8 @@ public class Game {
         //POR FAZER
     }
 
-    private int processKey(GUI.ACTION action) {
-        return player.processKey(action);
+    private int processKey(GUI.ACTION action,long time) {
+        return player.processKey(action,time);
     }
 
     public void nextStage(int nextStageNumber) throws URISyntaxException, IOException, FontFormatException {

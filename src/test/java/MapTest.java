@@ -29,8 +29,9 @@ public class MapTest {
     }
     @Test
     void HeroOnGate(){
+        long time = 400; //LEMBRAR DE ANALISAR ISSO, ESTOU TESTANDO
         assertEquals(0,player.heroOnGate());
-        player.processKey(GUI.ACTION.UP);
+        player.processKey(GUI.ACTION.UP,time);
         assertNotEquals(0,player.heroOnGate());
     }
 
