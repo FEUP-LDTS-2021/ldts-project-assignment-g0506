@@ -25,7 +25,6 @@ public class SMenu{
 
     public int selectOption() throws IOException{
         if(saves_nr == 0) {
-            System.out.println("aa");
             //draw();
             return 0;
         }

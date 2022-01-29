@@ -20,20 +20,16 @@ public class PMenu{
     }
 
     public int selectOption() throws IOException{
-        while(true){
-            pauseMenu.drawSelectMenu(gui,cursorY);
-            KeyStroke key = gui.getScreen().readInput();
-            processKey(key);
-
-            if(key.getKeyType() == KeyType.Enter){
-                if(cursorY == 10) {
-                    // screen.close();
-                    return 10;
-                }
-
-                return cursorY;
+        pauseMenu.drawSelectMenu(gui,cursorY);
+        KeyStroke key = gui.getScreen().readInput();
+        processKey(key);
+        if(key.getKeyType() == KeyType.Enter){
+            if(cursorY == 10) {
+                // screen.close();
+                return 10;
             }
         }
+        return cursorY;
     }
 
 
