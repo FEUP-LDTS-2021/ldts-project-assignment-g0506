@@ -22,7 +22,7 @@ public interface GUI {
 
      void drawSelect(Position position, String symbol, String textColor);
 
-     void drawPlayer(Position position,int weapon);
+     void drawPlayer(Position position,int weapon, boolean boss);
 
      void drawWall(Position position,String sprite);
 

@@ -72,7 +72,7 @@ public class Map{
                 addMonster();
             }
             else{
-                if (monsters.size()==0){
+                if (monsters.size()==0 && !player.isBossKiller()){
                     addBoss();
                 }
             }

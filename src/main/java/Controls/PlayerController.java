@@ -144,6 +144,10 @@ public class PlayerController {
 
                         player.getKillReward().set(0,player.getKillReward().get(0)+1);
                     }
+                    else if (monster.getType()==5){
+                        player.setBossKiller(true);
+                    }
+
                 } else {
                     monster.monsterKnockback(player.getPosition());
                     TempM.add(monster);

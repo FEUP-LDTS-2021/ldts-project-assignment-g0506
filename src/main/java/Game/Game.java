@@ -131,7 +131,6 @@ public class Game {
     }
 
     public void nextStage(int nextStageNumber) throws URISyntaxException, IOException, FontFormatException {
-        System.out.println(nextStageNumber);
         String stage = "Stage" + nextStageNumber + ".txt";
         map.getWalls().clear();
         map.getGates().clear();

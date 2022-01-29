@@ -15,6 +15,7 @@ public class Player {
     private List<Coin> coins;
     private List<Integer> killReward;
     private boolean alive;
+    private boolean bossKiller;
 
     public Player(Position position){
         this.hp = 15;
@@ -27,6 +28,7 @@ public class Player {
         this.exp = 0;
         this.level = 1;
         this.alive=true;
+        this.bossKiller=false;
         weapons = new ArrayList<Weapon>();
         killReward = new ArrayList<Integer>();
         Weapon w = new Weapon(1, 10);
@@ -53,6 +55,7 @@ public class Player {
         this.stamina = level*5+10;
         this.speed = 70-level*3;
         this.alive = true;
+        this.bossKiller = false;
         coins = new ArrayList<Coin>();
     }
 
@@ -245,4 +248,11 @@ public class Player {
         return killReward;
     }
 
+    public boolean isBossKiller() {
+        return bossKiller;
+    }
+
+    public void setBossKiller(boolean bossKiller) {
+        this.bossKiller = bossKiller;
+    }
 }
