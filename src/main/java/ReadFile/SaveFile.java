@@ -11,17 +11,17 @@ import java.util.List;
 public class SaveFile {
     String stage;
     Position player_pos;
-    int hp;
-    int level;
-    int exp;
+    String hp;
+    String level;
+    String exp;
     List<Weapon> weapons;
 
     public SaveFile(String stage, Position player_pos, int hp, int level, int exp, List<Weapon> weapons){
         this.stage = stage;
         this.player_pos = player_pos;
-        this.hp = hp;
-        this.level = level;
-        this.exp = exp;
+        this.hp = Integer.toString(hp);
+        this.level = Integer.toString(level);
+        this.exp = Integer.toString(exp);
         this.weapons = weapons;
     }
 
@@ -47,14 +47,16 @@ public class SaveFile {
     public void WriteToFile(File file){
         try {
             FileWriter myWriter = new FileWriter(file);
-            myWriter.write(stage);
-            myWriter.write(player_pos.getX() + " " + player_pos.getY());
-            myWriter.write(hp);
-            myWriter.write(level);
-            myWriter.write(exp);
+
+            myWriter.write(stage+ "\n");
+            myWriter.write(player_pos.getX()+"\n");
+            myWriter.write(player_pos.getY()+"\n");
+            myWriter.write(hp+"\n");
+            myWriter.write(level+"\n");
+            myWriter.write(exp+"\n");
             String w = "";
             for(Weapon weapon: weapons) {
-                w += (Integer.toString(weapon.getType()) + weapon.getBoost()) + " ";
+                w += (Integer.toString(weapon.getType()) + weapon.getBoost()) + "\n";
             }
             myWriter.write(w);
             myWriter.close();
