@@ -22,7 +22,7 @@ public class Player {
         this.attack = 5;
         this.defense = 10;
         this.stamina = 10;
-        this.speed = 10;
+        this.speed = 70;
         this.position = position;
         this.exp = 0;
         this.level = 1;
@@ -51,7 +51,7 @@ public class Player {
         this.attack = level*5+10;
         this.defense = level*5+10;
         this.stamina = level*5+10;
-        this.speed = level*5+10;
+        this.speed = 70-level*3;
         this.alive = true;
         coins = new ArrayList<Coin>();
     }
@@ -197,7 +197,7 @@ public class Player {
             attack+=5;
             defense+=5;
             stamina+=5;
-            speed+=5;
+            speed-=1;
         }
     }
 

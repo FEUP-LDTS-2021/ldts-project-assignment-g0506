@@ -44,6 +44,13 @@ public class Monster {
                 this.stamina = 50;
                 this.speed = 50;
                 this.sprite="c";
+            case 5:
+                this.hp = 400;
+                this.attack = 100;
+                this.defense = 200;
+                this.stamina = 50;
+                this.speed = 50;
+                this.sprite="M";
         }
     }
 

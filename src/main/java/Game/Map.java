@@ -30,7 +30,12 @@ public class Map{
         this.gui = gui;
         viewMap = new ViewMap(gui);
         this.player = player;
-        this.stage = parseInt(stage.substring(5, 6));
+        if (stage.length()==11){
+            this.stage = parseInt(stage.substring(5, 7));
+        }
+        else{
+            this.stage = parseInt(stage.substring(5, 6));
+        }
         file = new ReadFile(stage);
         createWalls_Gates();
         monsters = new ArrayList<Monster>();
@@ -63,7 +68,14 @@ public class Map{
         Random rand = new Random();
         if(time - timeLastSpawn > 1000){
         if(rand.nextBoolean() && monstersSize() < 10){
-            addMonster();
+            if (getStage()!=12){
+                addMonster();
+            }
+            else{
+                if (monsters.size()==0){
+                    addBoss();
+                }
+            }
         }
             timeLastSpawn = time;
         }
@@ -160,7 +172,7 @@ public class Map{
         if (time-timeLastMov>400) {
 
         for(Monster monster: monsters){
-            if (Math.abs(monster.getX()-player.getPosition().getX())<5 && Math.abs(monster.getY()-player.getPosition().getY())<5){
+            if ((Math.abs(monster.getX()-player.getPosition().getX())<5 && Math.abs(monster.getY()-player.getPosition().getY())<5)|| monster.getType()==5){
                 int tempx=monster.getX(),tempy= monster.getY();
                 monster.changePosition(player.getPosition());
                 invalidMonsterMove(monster,tempx,tempy,counter);
@@ -201,6 +213,9 @@ public class Map{
         return monsters.size();
     }
 
-
+    public void addBoss(){
+        Monster monster = new Monster(5,19,4);
+        monsters.add(monster);
+    }
 }
 

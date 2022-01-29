@@ -10,10 +10,12 @@ import java.util.List;
 public class PlayerController {
     private Map map;
     private Player player;
+    long timeLastMov;
 
     public PlayerController(Player player, Map map){
         this.player = player;
         this.map = map;
+        this.timeLastMov = 0;
     }
 
     public Player getPlayer(){
@@ -61,59 +63,58 @@ public class PlayerController {
         return 0;
     }
 
-    public int processKey(GUI.ACTION action){
-        switch (action) {
-            case UP:
-                moveHero(player.moveUp());
-                break;
-            case DOWN:
-                moveHero(player.moveDown());
-                break;
-            case LEFT:
-                moveHero(player.moveLeft());
-                break;
-            case RIGHT:
-                moveHero(player.moveRight());
-                break;
-            case ATTACK:
-                Attack();
-                return 3;
-            case EXIT:
-                return 1;
-            case SELECT:
-                return 2;
-            case W1:
-                if (player.getWeaponSize()>0){
-                    player.setWeaponIndex(0);
+    public int processKey(GUI.ACTION action,long time) {
+        if (time - timeLastMov > player.getSpeed()) {
+            switch (action) {
+                case UP:
+                    moveHero(player.moveUp());
                     break;
-                }
-                else{
-                    return 0;
-                }
-            case W2:
-                if (player.getWeaponSize()>1){
-                    player.setWeaponIndex(1);
+                case DOWN:
+                    moveHero(player.moveDown());
                     break;
-                }
-                else{
-                    return 0;
-                }
-            case W3:
-                if (player.getWeaponSize()>2){
-                    player.setWeaponIndex(2);
+                case LEFT:
+                    moveHero(player.moveLeft());
                     break;
-                }
-                else{
-                    return 0;
-                }
-            case W4:
-                if (player.getWeaponSize()>3){
-                    player.setWeaponIndex(3);
+                case RIGHT:
+                    moveHero(player.moveRight());
                     break;
-                }
-                else{
-                    return 0;
-                }
+                case ATTACK:
+                    Attack();
+                    return 3;
+                case EXIT:
+                    return 1;
+                case SELECT:
+                    return 2;
+                case W1:
+                    if (player.getWeaponSize() > 0) {
+                        player.setWeaponIndex(0);
+                        break;
+                    } else {
+                        return 0;
+                    }
+                case W2:
+                    if (player.getWeaponSize() > 1) {
+                        player.setWeaponIndex(1);
+                        break;
+                    } else {
+                        return 0;
+                    }
+                case W3:
+                    if (player.getWeaponSize() > 2) {
+                        player.setWeaponIndex(2);
+                        break;
+                    } else {
+                        return 0;
+                    }
+                case W4:
+                    if (player.getWeaponSize() > 3) {
+                        player.setWeaponIndex(3);
+                        break;
+                    } else {
+                        return 0;
+                    }
+            }
+            timeLastMov = time;
         }
         return 0;
     }
