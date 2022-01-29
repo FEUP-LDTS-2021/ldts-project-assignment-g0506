@@ -100,6 +100,7 @@ public class Game {
 
             int nextStage = player.heroOnGate();
             if (nextStage != 0) {
+
                 nextStage(map.getStage() + nextStage);
             }
 
@@ -127,6 +128,7 @@ public class Game {
     }
 
     public void nextStage(int nextStageNumber) throws URISyntaxException, IOException, FontFormatException {
+        System.out.println(nextStageNumber);
         String stage = "Stage" + nextStageNumber + ".txt";
         map.getWalls().clear();
         map.getGates().clear();
