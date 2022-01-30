@@ -1,11 +1,24 @@
-# ldts-project-assignment-g0506
+# LPOO_T5_G57 - OVERKILL
 
-Jogo RPG
+## Game Description
 
-- O jogador com um nivel e atributos como ataque, vida, defesa, stamina, velocidade anda pelo mapa com potenciais armas e escudos para lutar contra varios tipos de monstros.
-- Os monstros tambem têm atributos e estes variam em função do nivel do jogador. Quando um monstro morre o jogador ganha pontos de experiencia sendo que quato mais forte um monstro for mais pontos ganha.
-- Quando o jogador sobe de nivel pode melhorar um dos atributos à sua escolha e quando chegar a determinados niveis um Game.Boss (monstro com atributos muito elevados) aparece para o jogador o defrontar. Este Game.Boss para além de dar muitos pontos de experiencia, da tambem armas uma vez morto.
-- O jogador tem a possibilidade de guardar o jogo em locais espeicificos onde tambem pode trocar moedas que vai apanhando por armas e por melhorias permanentes nos seus atributos.
-- O jogo normal acaba quando o jogador conseguir um numero especifico de gems que são obtidas quando se mata um Game.Boss
-- Quando o jogador morre perde as moedas mas nao as gems.
-- Mesmo acabando o jogo, existe um post game onde o jogador pode continuar a explorar o mapa.
+Monster Killer is a RPG where you have to kill monsters in order to level up, increasing your stats in the process, and proceed to the next stages.
+Each stage is harder than the one preceded.
+
+This project was developed by Alexandre Costa (up202005319@edu.fe.up.pt), Antonio Augusto (up202000705@edu.fe.up.pt) and Andre Soares (up202004161@edu.fe.up.pt) for LDTS 2021⁄22.
+
+For a more detailed version of this description click [here](docs/README.md). 
+
+## Screenshots
+
+The following screenshots ilustrate the general look of our game, as well as the divergent functionalities:
+
+### Menus
+
+
+### Levels
+
+
+### End Game
+
+

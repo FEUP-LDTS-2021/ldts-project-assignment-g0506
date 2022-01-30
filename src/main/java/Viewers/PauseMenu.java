@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PauseMenu extends View {
-    final List<String> menuOptions = Arrays.asList("Resume Game", "Save game", "Quit to Main Menu");
+    final List<String> menuOptions = Arrays.asList("RESUME GAME", "SAVE GAME", "QUIT TO MAIN MENU");
     public PauseMenu(GUI gui) throws URISyntaxException, IOException, FontFormatException {
         super(gui);
     }

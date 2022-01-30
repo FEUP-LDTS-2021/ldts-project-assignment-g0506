@@ -62,8 +62,8 @@ public class SMenu{
 
     public void draw() throws IOException{
         gui.clear();
-        gui.writeText(new Position(3,6), "There are no Save States available", "#000000","#FFFF00");
-        gui.writeText(new Position(6, 7), "(Press Enter to continue)", "#000000","#FFFF00");
+        gui.writeText(new Position(3,6), "THERE ARE NO SAVE STATES AVAILABLE", "#000000","#FFFF00");
+        gui.writeText(new Position(6, 7), "(PRESS ENTER TO CONTINUE)", "#000000","#FFFF00");
         gui.refresh();
         KeyStroke key = gui.getScreen().readInput();
         while(key.getKeyType()!= KeyType.Enter){
