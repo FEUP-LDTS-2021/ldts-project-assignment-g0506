@@ -1,7 +1,7 @@
 package MonsterKiller;
 
 import MonsterKiller.Game.Game;
-import MonsterKiller.Viewers.SMenu;
+import MonsterKiller.ReadFile.ReadFile;
 import MonsterKiller.gui.GUI;
 import MonsterKiller.gui.Lanterna;
 
@@ -12,12 +12,12 @@ import java.net.URISyntaxException;
 public class Controller {
     Menu menu;
     Game game;
-    SMenu sMenu;
+
     private final GUI gui;
     public Controller() throws IOException, URISyntaxException, FontFormatException {
         gui = new Lanterna();
         menu = new Menu(gui);
-        sMenu = new SMenu(gui);
+
     }
 
     void run() throws IOException, URISyntaxException, FontFormatException {
@@ -31,21 +31,13 @@ public class Controller {
                     game.run();
                     break;
                 case 8:
-                    switch(sMenu.selectOption()){
-                        case 6:
-                            break;
-                        case 8:
-                            break;
-                        case 10:
-                            break;
-                        case 0:
-                            sMenu.draw();
-                            break;
-                    }
+                    ReadFile rFile = new ReadFile();
+                    game = new Game(gui,rFile.getResume_line());
+                    game.run();
                     break;
                 case 10:
-                    //Por fazer
-
+                    menu.instructionsMenu();
+                    break;
                 case 0:
                     stateControl = false;
                     gui.close();

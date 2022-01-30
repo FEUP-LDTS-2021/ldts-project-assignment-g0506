@@ -27,7 +27,7 @@ public class SaveFile {
 
     public void SaveGame() throws IOException {
         try {
-            String filename = "SaveState"+stage+".txt";
+            String filename = "SaveState1.txt";
 
             File file = new File(filename);
             if (file.createNewFile()) {

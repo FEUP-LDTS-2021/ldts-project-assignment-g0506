@@ -35,7 +35,8 @@ public class GateTest {
         long startTime = System.currentTimeMillis();
         GUI gui = new Lanterna();
         Game game = new Game(gui);
-        Player player = new Player(new Position(22,2));
+        Player player = new Player(new Position(22,1));
+        player.setLevel(70);
         Map map = new Map(gui, player, "Stage1.txt", game);
         PlayerController p = new PlayerController(player, map);
         assertEquals(0, p.heroOnGate());

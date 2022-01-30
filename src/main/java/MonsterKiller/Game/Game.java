@@ -31,23 +31,27 @@ public class Game {
     }
 
 
-    public Game(GUI gui, String filename) throws URISyntaxException, IOException, FontFormatException {
+    public Game(GUI gui, List<String> lines) throws URISyntaxException, IOException, FontFormatException {;
 
-        ReadFile saveState = new ReadFile(filename);
-        List<String> lines = saveState.getMap();
         String stage = lines.get(0);
-        Position pos = new Position(Integer.parseInt(lines.get(1).substring(0,1)),Integer.parseInt(lines.get(1).substring(2,3)));
-        int hp = Integer.parseInt(lines.get(2));
-        int level = Integer.parseInt(lines.get(3));
-        int exp = Integer.parseInt(lines.get(4));
-        String []arr = lines.get(5).split(" ");
+        stage = "Stage" + stage + ".txt";
+        Position pos = new Position(Integer.parseInt(lines.get(1)),Integer.parseInt(lines.get(2)));
+        int hp = Integer.parseInt(lines.get(3));
+        int level = Integer.parseInt(lines.get(4));
+        int exp = Integer.parseInt(lines.get(5));
+        String []arr = lines.get(6).split(" ");
         List<Weapon> weapons = new ArrayList<>();
         for(String str : arr){
             Weapon weapon = new Weapon(Integer.parseInt(str.substring(0,1)), Integer.parseInt(str.substring(1)));
             weapons.add(weapon);
         }
+        this.gui = gui;
         Player p = new Player(pos, hp, level, exp, weapons);
         this.map = new Map(gui, p, stage, this);
+        this.state = true;
+        player = new PlayerController(p, map);
+        this.pmenu = new PMenu(gui);
+
     }
 
     private void draw(long time) throws IOException {
@@ -57,6 +61,7 @@ public class Game {
     }
 
     public void run() throws IOException, URISyntaxException, FontFormatException {
+
         int FPS = 30;
         int frameTime = 1000 / FPS;
 
@@ -89,11 +94,13 @@ public class Game {
                 case 0:
                     break;
             }
+
             if (player.getPlayer().getKillReward().get(1)==5){
                 Weapon weaponl= new Weapon(3,5);
                 player.getPlayer().addWeapon(weaponl);
                 player.getPlayer().getKillReward().set(1,6);
             }
+
             else if (player.getPlayer().getKillReward().get(0)==10){
                 Weapon weapond= new Weapon(2,10);
                 player.getPlayer().addWeapon(weapond);
@@ -122,11 +129,7 @@ public class Game {
     }
 
 
-    public void menuPause(){
-        //POR FAZER
-    }
-
-    private int processKey(GUI.ACTION action,long time) {
+    public int processKey(GUI.ACTION action,long time) {
         return player.processKey(action,time);
     }
 
@@ -140,14 +143,6 @@ public class Game {
     public void setMap(GUI gui, Player player1, String stage) throws URISyntaxException, IOException, FontFormatException {
         map = new Map(gui, player1, stage, this);
         player.setMap(map);
-    }
-
-    public boolean getState() {
-        return state;
-    }
-
-    public void setState(boolean state) {
-        this.state = state;
     }
 
 

@@ -28,7 +28,6 @@ public class Menu {
 
             if(key.getKeyType() == KeyType.Enter){
                 if(cursorY == 12) {
-                    // screen.close();
                     return 0;
                 }
 
@@ -37,6 +36,15 @@ public class Menu {
         }
     }
 
+    public void instructionsMenu() throws IOException {
+        viewMenu.drawInstructionScreen(gui);
+        KeyStroke key = gui.getScreen().readInput();
+        if(key.getKeyType() == KeyType.Enter) return;
+    }
+
+    public void setCursorY(int cursorY){
+        this.cursorY = cursorY;
+    }
 
     private void processKey(KeyStroke key) {
         if(key.getKeyType() == KeyType.ArrowUp){

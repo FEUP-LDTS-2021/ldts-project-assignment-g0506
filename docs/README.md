@@ -38,7 +38,6 @@ Regarding the implementation, we have 3 elements:
 - **Model** - we have the class Game that serves as bridge between the input (Controller) and the output (View).
 - **View** - we have the abstract class view that lets us draw the output. 
 - **Controller** - we have the method GetProcessKey that reads the player's input.
-
 #### Consequences:
 We have the benefit of:
 - being more efficient since the architecture of our program is divided into 3 components.

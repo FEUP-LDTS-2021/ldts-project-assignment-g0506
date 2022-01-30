@@ -29,6 +29,17 @@ public class ViewMenu extends View {
         gui.refresh();
     }
 
+    public void drawInstructionScreen(GUI gui) throws IOException {
+        draw(gui);
+        gui.writeText(new Position(2,1),"AT FIRST AVOID ATTACKING b","#000000","#FFFFFF");
+        gui.writeText(new Position(2,3),"TO BE STRONG, KILL MONSTERS","#000000","#FFFFFF");
+        gui.writeText(new Position(2,5),"TO INCREASE YOUR LEVEL, KILL MONSTERS","#000000","#FFFFFF");
+        gui.writeText(new Position(2,7),"TO BE STRONG, KILL MONSTERS","#000000","#FFFFFF");
+        gui.writeText(new Position(2,9),"TO KILL MONSTERS, PRESS SPACE","#000000","#FFFFFF");
+        gui.writeText(new Position(2,14),"PRESS ENTER TO BACK","#000000","#FFFF00");
+        gui.refresh();
+    }
+
     @Override
     public void draw(GUI gui) throws IOException {
 

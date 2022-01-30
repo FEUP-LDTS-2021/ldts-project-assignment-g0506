@@ -53,6 +53,11 @@ public class Player {
         this.speed = 70-level*3;
         this.alive = true;
         this.bossKiller = false;
+        killReward = new ArrayList<Integer>();
+        int r1=0,r2=0,r3=0;
+        killReward.add(r1);
+        killReward.add(r2);
+        killReward.add(r3);
         coins = new ArrayList<Coin>();
     }
 
