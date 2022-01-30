@@ -28,8 +28,10 @@ public class SaveFile {
     public void SaveGame() throws IOException {
         try {
             String filename = "SaveState"+stage+".txt";
+
             File file = new File(filename);
             if (file.createNewFile()) {
+
                 WriteToFile(file);
                 File f = new File("Saves");
                 FileWriter fW = new FileWriter(f);
