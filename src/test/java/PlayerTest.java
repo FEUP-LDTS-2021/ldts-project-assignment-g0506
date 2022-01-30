@@ -12,6 +12,8 @@ public class PlayerTest {
     public void PlayerHPBar(){
         String healthPercent=player1.healthCount();
         assertEquals("100%",healthPercent);
+        player1.setHp(player1.getHp()-12);
+        assertEquals("20%",player1.healthCount());
     }
 
     @Test

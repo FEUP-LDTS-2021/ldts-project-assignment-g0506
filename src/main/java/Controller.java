@@ -38,8 +38,6 @@ public class Controller {
                         case 10:
                             break;
                         case 0:
-
-
                             sMenu.draw();
                             break;
                     }
