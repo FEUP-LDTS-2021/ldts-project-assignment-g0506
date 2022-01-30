@@ -1,9 +1,10 @@
 plugins {
     id 'java'
     id 'application'
+    id 'info.solidsoft.pitest' version '1.7.0'
 }
 
-group 'org.example'
+group 'MonsterKiller'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -11,7 +12,7 @@ repositories {
 }
 
 application {
-    mainClass.set("Application")
+    mainClass.set("MonsterKiller.Application")
 }
 
 dependencies {
@@ -23,4 +24,8 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+pitest {
+    junit5PluginVersion = '0.15'
 }
