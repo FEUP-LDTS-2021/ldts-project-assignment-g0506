@@ -19,6 +19,9 @@ public class PMenu{
     }
 
     public int selectOption() throws IOException{
+        cursorY = 6;
+        while(true){
+
         pauseMenu.drawSelectMenu(gui,cursorY);
         KeyStroke key = gui.getScreen().readInput();
         processKey(key);
@@ -27,8 +30,12 @@ public class PMenu{
                 // screen.close();
                 return 10;
             }
+            if(cursorY == 8){
+                return 8;}
+
+            return cursorY;
         }
-        return cursorY;
+        }
     }
 
 
