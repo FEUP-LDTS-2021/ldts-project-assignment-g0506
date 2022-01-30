@@ -31,13 +31,18 @@ This project was developed by Alexandre Costa (up202005319@edu.fe.up.pt), Antoni
 The main problem was that we needed to control everything inside the game.
 
 #### The Pattern:
-We implemented the Model-View-Controller pattern. 
+We implemented the Model-View-Controller pattern.
 
 #### Implementation:
 Regarding the implementation, we have 3 elements:
 - **Model** - we have the class Game that serves as bridge between the input (Controller) and the output (View).
 - **View** - we have the abstract class view that lets us draw the output. 
 - **Controller** - we have the method GetProcessKey that reads the player's input.
+
+
+![](image/MVC.png)
+
+
 #### Consequences:
 We have the benefit of:
 - being more efficient since the architecture of our program is divided into 3 components.
@@ -53,6 +58,10 @@ We have applied the Action pattern.
 #### Implementation:
 Regarding the implementation process, we used and enum to list the different possible actions and then created a method (GetKeyCommand) that associated every enum element with an input. 
 
+
+![](image/ControlsUML.png)
+
+
 ####Consequences:
 This allowed us to create an action pattern for every input and evade conflicts on input.
 
@@ -65,6 +74,10 @@ We implemented the Factory method.
 
 #### Implementation:
 Regarding the implementation, we have an interface (GUI) that is implemented by a class (Lanterna) that imports from the Lanterna framework. This way, we were able to create an abstract class (View) that lets its extended classes inherit the abstract method **draw** and so the screen is independent from the rest of the elements that need to be drawn.
+
+
+![](image/FactoryUML.png)
+
 
 #### Consequences:
 We have the benefit of:
@@ -85,8 +98,16 @@ In our program we have some long switch statements, but we think they are necess
 
 ### Screenshot of coverage report
 
+
+![](image/Coverage.png)
+
+
 ### Link to mutation testing report
 
+![](image/pitest.png)
+
+
+[Pitest](pitest/index.html)
 
 ## Self-evaluation
 

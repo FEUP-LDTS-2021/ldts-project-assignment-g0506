@@ -1,5 +1,6 @@
 package MonsterKiller;
 
+import MonsterKiller.Controller.Controller;
 import MonsterKiller.Viewers.ViewMenu;
 
 import java.awt.*;

@@ -1,11 +1,13 @@
-package MonsterKiller;
+package MonsterKiller.Controller;
 
 import MonsterKiller.Game.Game;
 import MonsterKiller.ReadFile.ReadFile;
+import MonsterKiller.Viewers.Menu;
 import MonsterKiller.gui.GUI;
 import MonsterKiller.gui.Lanterna;
 
 import java.awt.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -20,7 +22,7 @@ public class Controller {
 
     }
 
-    void run() throws IOException, URISyntaxException, FontFormatException {
+    public void run() throws IOException, URISyntaxException, FontFormatException {
         boolean stateControl = true;
 
         while(stateControl){
@@ -31,9 +33,13 @@ public class Controller {
                     game.run();
                     break;
                 case 8:
-                    ReadFile rFile = new ReadFile();
-                    game = new Game(gui,rFile.getResume_line());
-                    game.run();
+                    try {
+                        ReadFile rFile = new ReadFile();
+                        game = new Game(gui, rFile.getResume_line());
+                        game.run();
+                    }catch(FileNotFoundException e) {
+                        menu.noSaveStateScreen();
+                    }
                     break;
                 case 10:
                     menu.instructionsMenu();

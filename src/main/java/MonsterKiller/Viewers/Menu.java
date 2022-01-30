@@ -1,14 +1,12 @@
-package MonsterKiller;
+package MonsterKiller.Viewers;
 
-import MonsterKiller.Viewers.ViewMenu;
+import MonsterKiller.gui.GUI;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
-
-import MonsterKiller.gui.GUI;
 
 
 public class Menu {
@@ -20,7 +18,7 @@ public class Menu {
         viewMenu = new ViewMenu(gui);
     }
 
-    int selectOption() throws IOException{
+    public int selectOption() throws IOException{
         while(true){
             viewMenu.drawSelectMenu(gui,cursorY);
             KeyStroke key = gui.getScreen().readInput();
@@ -38,6 +36,12 @@ public class Menu {
 
     public void instructionsMenu() throws IOException {
         viewMenu.drawInstructionScreen(gui);
+        KeyStroke key = gui.getScreen().readInput();
+        if(key.getKeyType() == KeyType.Enter) return;
+    }
+
+    public void noSaveStateScreen() throws IOException{
+        viewMenu.drawNoSaveState(gui);
         KeyStroke key = gui.getScreen().readInput();
         if(key.getKeyType() == KeyType.Enter) return;
     }

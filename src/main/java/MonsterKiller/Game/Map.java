@@ -1,8 +1,10 @@
 package MonsterKiller.Game;
+
 import MonsterKiller.Position.Position;
 import MonsterKiller.ReadFile.ReadFile;
 import MonsterKiller.Viewers.ViewMap;
 import MonsterKiller.gui.GUI;
+
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;

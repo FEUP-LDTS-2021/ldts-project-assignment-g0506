@@ -1,5 +1,9 @@
 rootProject.name = 'ProjetoLDTS'
 include 'test'
-include 'untitled:src'
-findProject(':untitled:src')?.name = 'test'
+include 'MonsterKiller:src'
+findProject(':MonsterKiller:src')?.name = 'test'
+include 'test'
+include 'ldts_G0506'
+include 'main'
+include 'MonsterKiller'
 

@@ -1,13 +1,12 @@
 package MonsterKiller.Viewers;
 
+import MonsterKiller.gui.GUI;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
-
-import MonsterKiller.gui.GUI;
 
 public class PMenu{
     PauseMenu pauseMenu;

@@ -1,4 +1,4 @@
-# LPOO_T5_G57 - OVERKILL
+# LDTS G0506 - Monster Killer
 
 ## Game Description
 
@@ -11,7 +11,7 @@ For a more detailed version of this description click [here](docs/README.md).
 
 ## Screenshots
 
-The following screenshots ilustrate the general look of our game, as well as the divergent functionalities:
+The following screenshots illustrate the general look of our game, as well as the divergent functionalities:
 
 ### Menus
 

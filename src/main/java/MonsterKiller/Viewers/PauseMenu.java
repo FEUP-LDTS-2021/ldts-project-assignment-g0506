@@ -15,7 +15,7 @@ public class PauseMenu extends View {
         super(gui);
     }
 
-    public void drawSelectMenu(GUI gui,int cursorY) throws IOException {
+    public void drawSelectMenu(GUI gui,int cursorY) throws IOException{
         draw(gui);
         Position position = new Position(13,6);
         for(String options: menuOptions){
@@ -27,8 +27,7 @@ public class PauseMenu extends View {
             position.setY(position.getY()+2);
         }
         gui.refresh();
-    }
-
+    };
     @Override
     public void draw(GUI gui) throws IOException {
         gui.fillBackground(gui.createTextGraphics(), "#000000", new Position(0, 0));
