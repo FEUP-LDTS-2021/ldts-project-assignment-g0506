@@ -15,10 +15,14 @@ The following screenshots ilustrate the general look of our game, as well as the
 
 ### Menus
 
+![Menu](docs/image/MainMenu.png)
+![PauseMenu](docs/image/PauseMenu.png)
+
 
 ### Levels
+![Stage1.txt](docs/image/Level1.png)
+![Stage5.txt](docs/image/Level5.png)
 
 
-### End Game
 
 

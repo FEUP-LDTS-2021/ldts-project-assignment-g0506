@@ -85,15 +85,9 @@ In our program we have some long switch statements, but we think they are necess
 ## Testing
 
 ### Screenshot of coverage report
-<p align="center" justify="center">
-  <img src="images/screenshots/codeCoverage"/>
-</p>
-<p align="center">
-  <b><i>Fig 6. Code coverage screenshot</i></b>
-</p>
 
 ### Link to mutation testing report
-[Mutation tests](../build/reports/pitest/202105302045/index.html)
+
 
 ## Self-evaluation
 
