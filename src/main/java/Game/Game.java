@@ -21,16 +21,18 @@ public class Game {
     private SaveFile save;
 
     public Game(GUI gui) throws URISyntaxException, IOException, FontFormatException {
+
         Player p = new Player(new Position(5, 5));
         this.gui = gui;
         map = new Map(gui, p, "Stage1.txt", this);
         this.state = true;
         player = new PlayerController(p, map);
         this.pmenu = new PMenu(gui);
-        save = new SaveFile(Integer.toString(map.getStage()),player.getPosition(), player.getHP(), player.getLevel(), player.getEXP(), player.getWeapons());
     }
 
+
     public Game(GUI gui, String filename) throws URISyntaxException, IOException, FontFormatException {
+
         ReadFile saveState = new ReadFile(filename);
         List<String> lines = saveState.getMap();
         String stage = lines.get(0);
@@ -73,6 +75,7 @@ public class Game {
                         case 6:
                             break;
                         case 8:
+                            save = new SaveFile(Integer.toString(map.getStage()),player.getPosition(), player.getHP(), player.getLevel(), player.getEXP(), player.getWeapons());
                             save.SaveGame();
                             break;
                         case 10:
@@ -128,7 +131,6 @@ public class Game {
     }
 
     public void nextStage(int nextStageNumber) throws URISyntaxException, IOException, FontFormatException {
-        System.out.println(nextStageNumber);
         String stage = "Stage" + nextStageNumber + ".txt";
         map.getWalls().clear();
         map.getGates().clear();

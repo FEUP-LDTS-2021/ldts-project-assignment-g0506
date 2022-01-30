@@ -99,20 +99,18 @@ public class Lanterna implements GUI {
         drawText(textGraphics, position, text, colorText);
     }
 
-    public void drawPlayer(Position position,int weapon){
+    public void drawPlayer(Position position,int weapon, boolean boss){
         TextGraphics textGraphics = screen.newTextGraphics();
         textGraphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
-        textGraphics.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
-
+        if (boss){
+            textGraphics.setForegroundColor(TextColor.Factory.fromString("#AFE1AF"));
+        }
+        else{
+            textGraphics.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
+        }
         textGraphics.enableModifiers(SGR.BOLD);
         textGraphics.putString(position.getX(),position.getY(),"x");
-        /* Apenas mostrar quando o user ataca
-        if(weapon > 0){
-            textGraphics.setForegroundColor(TextColor.Factory.fromString("#71797E"));
-            textGraphics.enableModifiers(SGR.BOLD);
-            textGraphics.putString(position.getX()+1,position.getY(),"->");
-        }
-        */
+
 
     }
 

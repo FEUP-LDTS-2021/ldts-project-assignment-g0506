@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 public class MonsterTest {
     Position PlayerPosition=new Position(5,5);
     Monster monster=new Monster(1,2,1);
+    Monster monster2=new Monster(1,6,5);
     @Test
     public void ChangeMonsterPosition(){
         assertEquals(2,monster.getX());
@@ -36,6 +37,16 @@ public class MonsterTest {
             assertNotEquals(2,monster.getX());
             assertNotEquals(1,monster.getY());
         }
+
+    }
+
+    @Test
+    public void MonsterKnockback(){
+        assertEquals(6,monster2.getX());
+        assertEquals(5,monster2.getY());
+        monster2.monsterKnockback(PlayerPosition);
+        assertEquals(7,monster2.getX());
+        assertEquals(5,monster2.getY());
 
     }
 }

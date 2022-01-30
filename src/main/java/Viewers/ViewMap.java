@@ -24,7 +24,7 @@ public class ViewMap extends View {
     public void drawElements(GUI gui, Player player, List<Monster> monsters, List<Wall> walls, List<Gate> gates) throws IOException {
         draw(gui);
         drawPlayerBar(gui,player);
-        gui.drawPlayer(player.getPosition(), player.getWeaponSize());
+        gui.drawPlayer(player.getPosition(), player.getWeaponSize(),player.isBossKiller());
 
         for(Wall wall: walls){
             gui.drawWall(new Position(wall.getX(), wall.getY()),wall.getSprite());
