@@ -184,7 +184,9 @@ public class Map{
                         if (player.getWeapons().get(player.getWeaponIndex()).getType()==2){
                             player.setDefense(player.getDefense()+(player.getWeapons().get(player.getWeaponIndex()).getBoost()/5));
                         }
-                        player.setHp(player.getHp()-(monster.getAttack()-(player.getDefense()/5)));
+                        if (monster.getAttack()-(player.getDefense()/5)>=0){
+                            player.setHp(player.getHp()-(monster.getAttack()-(player.getDefense()/5)));
+                        }
                         if (player.getWeapons().get(player.getWeaponIndex()).getType()==2){
                             player.setDefense(player.getDefense()-(player.getWeapons().get(player.getWeaponIndex()).getBoost()/5));
                         }
